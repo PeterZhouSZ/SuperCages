@@ -18,9 +18,9 @@
 
 #include "animation/asyncAnimator.h"
 
-#include "skinning/cageTranslator.h"
-#include "skinning/cageUpdater.h"
-#include "skinning/skeletonUpdater.h"
+#include "operators/cageTranslator.h"
+#include "operators/cageUpdater.h"
+#include "operators/skeletonUpdater.h"
 
 class Environment
 {

@@ -4,7 +4,7 @@
 #include "controller.h"
 #include "common/skeletonOperations.h"
 #include "common/cageOperations.h"
-#include "skinning/cageUpdater.h"
+#include "operators/cageUpdater.h"
 #include "common/toolsOperation.h"
 #import "common/importFiles.h"
 #import  "common/exportFiles.h"

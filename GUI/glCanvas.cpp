@@ -24,10 +24,10 @@
 #include "geom/plane.h"
 #include "math/quaternion.h"
 #include "QGLViewer/manipulatedCameraFrame.h"
-#include "skinning/cageUpdater.h"
-#include "skinning/skeletonUpdater.h"
+#include "operators/cageUpdater.h"
+#include "operators/skeletonUpdater.h"
+#include "operators/cageTranslator.h"
 #include "animation/asyncAnimator.h"
-#include "skinning/cageTranslator.h"
 #include "skinning/corSkinning.h"
 
 #include <iostream>

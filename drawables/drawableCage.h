@@ -64,8 +64,8 @@ public:
 
    inline const std::vector<bool> & getSelectedVertices() const
       { return isVertexSelected; }
-   inline const std::vector<double> & getLastTranslations() const
-      { return lastTranslations; }
+   //inline const std::vector<double> & getLastTranslations() const
+   //   { return lastTranslations; }
 
    void activateCageRendering(bool activate);
 protected:
@@ -79,7 +79,7 @@ protected:
    std::map<int,int> vertex2PickableIndex;
    std::vector<bool> isVertexSelected;
    std::unordered_set<int> selectedVertices;
-   std::vector<double> lastTranslations;
+   //Moved in cage //std::vector<double> lastTranslations;
 
 };
 

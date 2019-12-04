@@ -13,9 +13,9 @@
 #include "skinning/noCageSkinning.h"
 #include "skinning/meanValueCoordinates.h"
 #include "skinning/cageSkinning.h"
-#include "skinning/cageUpdater.h"
+#include "operators/cageUpdater.h"
 #include "GUI/restPoseCanvas.h"
-#include "skinning/cageTranslator.h"
+#include "operators/cageTranslator.h"
 
 void saveCageWeightsToFile()
 {

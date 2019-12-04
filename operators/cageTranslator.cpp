@@ -11,7 +11,7 @@ CageTranslator::CageTranslator()
 }
 
 CageTranslator::CageTranslator(Character * _character,
-                               DrawableCage      * _cage,
+                               Cage      * _cage,
                                Skeleton  * _skel,
                                Weights   * _psi,   //ψ skelUpdater weights
                                Weights   * _phi,   //φ cage weights
@@ -30,7 +30,7 @@ CageTranslator::CageTranslator(Character * _character,
 
 
 CageTranslator::CageTranslator(Character * _character,
-                               DrawableCage      * _cage,
+                               Cage      * _cage,
                                Skeleton  * _skel,
                                Weights   * _psi,   //ψ skelUpdater weights
                                Weights   * _phi,   //φ cage weights
@@ -49,7 +49,7 @@ CageTranslator::CageTranslator(Character * _character,
 }
 
 bool CageTranslator::create(Character *_character,
-                            DrawableCage *_cage,
+                            Cage *_cage,
                             Skeleton *_skel,
                             Weights *_psi,
                             Weights *_phi,
@@ -100,7 +100,7 @@ bool CageTranslator::create(Character *_character,
    refreshMatrices = false;
 }
 
-bool CageTranslator::create(Character *_character, DrawableCage *_cage, Skeleton *_skel, Weights *_psi, Weights *_phi, Weights *_omega, const std::vector<int> &_selectedVerticesForInversion)
+bool CageTranslator::create(Character *_character, Cage *_cage, Skeleton *_skel, Weights *_psi, Weights *_phi, Weights *_omega, const std::vector<int> &_selectedVerticesForInversion)
 {
    clear();
 

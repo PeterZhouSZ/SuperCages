@@ -22,10 +22,10 @@
 #include "skinning/noCageSkinning.h"
 #include "skinning/meanValueCoordinates.h"
 #include "skinning/cageSkinning.h"
-#include "skinning/cageUpdater.h"
+#include "operators/cageUpdater.h"
 #include "skinning/linearBlendSkinning.h"
 #include "skinning/dualQuaternionSkinning.h"
-#include "skinning/skeletonUpdater.h"
+#include "operators/skeletonUpdater.h"
 #include "skinning/corSkinning.h"
 
 #include "skinning/sparseWeights.h"

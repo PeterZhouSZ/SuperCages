@@ -2,8 +2,11 @@
 #define CAGETRANSLATOR_H
 
 #include "geom/character.h"
-#include "drawables/drawableCage.h"
+
+#include "geom/cage.h"
+
 #include "geom/skeleton.h"
+
 #include "skinning/weights.h"
 
 #include "Eigen/Sparse"
@@ -15,14 +18,14 @@ public:
 
     CageTranslator();
     CageTranslator(Character * _character,
-                   DrawableCage      * _cage,
+                   Cage      * _cage,
                    Skeleton  * _skel,
                    Weights   * _psi,   //ψ skelUpdater weights
                    Weights   * _phi,   //φ cage weights
                    Weights   * _omega  //ω skel weights
                    );
     CageTranslator(Character * _character,
-                   DrawableCage      * _cage,
+                   Cage      * _cage,
                    Skeleton  * _skel,
                    Weights   * _psi,   //ψ skelUpdater weights
                    Weights   * _phi,   //φ cage weights
@@ -31,14 +34,14 @@ public:
                    );
 
     bool create   (Character * _character,
-                   DrawableCage      * _cage,
+                   Cage      * _cage,
                    Skeleton  * _skel,
                    Weights   * _psi,   //ψ skelUpdater weights
                    Weights   * _phi,   //φ cage weights
                    Weights   * _omega  //ω skel weights
                    );
     bool create   (Character * _character,
-                   DrawableCage      * _cage,
+                   Cage      * _cage,
                    Skeleton  * _skel,
                    Weights   * _psi,   //ψ skelUpdater weights
                    Weights   * _phi,   //φ cage weights
@@ -64,7 +67,7 @@ public:
 
 private:
    Character * character;
-   DrawableCage      * cage;
+   Cage      * cage;
    Skeleton  * skel;
 
    Weights   * psi;   //ψ skelUpdater weights

@@ -139,6 +139,9 @@ HEADERS = \
     drawables/drawableSkeleton.h \
     geom/transform.h \
     common/types.h \
+    operators/cageTranslator.h \
+    operators/cageUpdater.h \
+    operators/skeletonUpdater.h \
     skinning/weights.h \
     skinning/skeletonSkinning.h \
     skinning/linearBlendSkinning.h \
@@ -157,7 +160,6 @@ HEADERS = \
     common/toolsOperation.h \
     GUI/toolsPanel.h \
     common/characterOperations.h \
-    skinning/cageUpdater.h \
     math/leastSquareSolver.h \
     math/quaternion.h \
     geom/ray.h \
@@ -167,15 +169,14 @@ HEADERS = \
     skinning/noCageSkinning.h \
     common/animatorOperations.h \
     GUI/restPoseCanvas.h \
-    skinning/skeletonUpdater.h \
     external/JM/MEC.h \
     external/JM/point3.h \
     external/JM/MVCoordinates3D.h \
+    external/OBJ-Loader/OBJ_Loader.h \
     GUI/rigPanel.h \
     common/rigOperations.h \
     animation/asyncAnimator.h \
     GUI/asyncAnimatorPanel.h \
-    skinning/cageTranslator.h \
     skinning/corSkinning.h \
     environment.h \
     skinning/sparseWeights.h
@@ -198,6 +199,9 @@ SOURCES = \
     drawables/drawableSkeleton.cpp \
     geom/transform.cpp \
     common/types.cpp \
+    operators/cageTranslator.cpp \
+    operators/cageUpdater.cpp \
+    operators/skeletonUpdater.cpp \
     skinning/weights.cpp \
     skinning/skeletonSkinning.cpp \
     skinning/linearBlendSkinning.cpp \
@@ -217,7 +221,6 @@ SOURCES = \
     common/toolsOperation.cpp \
     GUI/toolsPanel.cpp \
     common/characterOperations.cpp \
-    skinning/cageUpdater.cpp \
     math/leastSquareSolver.cpp \
     math/meshReconstructor.cpp \
     math/frame.cpp \
@@ -225,12 +228,10 @@ SOURCES = \
     skinning/noCageSkinning.cpp \
     common/animatorOperations.cpp \
     GUI/restPoseCanvas.cpp \
-    skinning/skeletonUpdater.cpp \
     GUI/rigPanel.cpp \
     common/rigOperations.cpp \
     animation/asyncAnimator.cpp \
     GUI/asyncAnimatorPanel.cpp \
-    skinning/cageTranslator.cpp \
     skinning/corSkinning.cpp \
     environment.cpp \
     skinning/sparseWeights.cpp

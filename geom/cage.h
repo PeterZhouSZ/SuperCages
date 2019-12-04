@@ -100,6 +100,9 @@ public:
                              const std::vector<double> & keyframeTop,
                              double a);
 
+   inline const std::vector<double> & getLastTranslations() const
+      { return lastTranslations; }
+
 protected:
 
    std::vector<double> restPoseVertices;
@@ -111,6 +114,8 @@ protected:
    std::vector<double> restPoseTrianglesNormals;
 
    //TODO: ELIMINA IMPLEMENTAZIONI DA FILE H E CREA UN CPP DEDICATO
+
+   std::vector<double> lastTranslations;
 
 };
 

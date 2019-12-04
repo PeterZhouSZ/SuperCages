@@ -7,7 +7,7 @@
 #include "skinning/skeletonSkinning.h"
 #include "GUI/qtUtils.h"
 #include "common/exportFiles.h"
-#include "skinning/skeletonUpdater.h"
+#include "operators/skeletonUpdater.h"
 #include "drawables/drawableCage.h"
 #include "skinning/linearBlendSkinning.h"
 #include "skinning/dualQuaternionSkinning.h"
