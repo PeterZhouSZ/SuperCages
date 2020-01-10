@@ -1,4 +1,4 @@
-# Project SuperCages
+# SuperCages
 SuperCages is a framework that allows user to couple skeleton-based deformations with cage-based ones.
 
 A pre-print article that describes this framework is available [HERE](https://arxiv.org/abs/1909.02807) 
