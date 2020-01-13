@@ -356,12 +356,63 @@ void DrawableCage::translate(const cg3::Vec3d & translation)
 
 }
 
-void DrawableCage::rotate(const cg3::dQuaternion & rotation,
-                          const cg3::Point3d & rotationCenter)
+void DrawableCage::rotate(const cg3::dQuaternion & rotation)
+{
+   /*if(activateTransformation)
+   {
+
+      cg3::Point3d rotationCenter;
+      getSelectedObjectsBarycenter(rotationCenter, false);
+
+      for(int i=0; i<getNumVertices(); ++i)
+      {
+         if(isVertexSelected[i])
+         {
+            cg3::Point3d pos = getVertex(i);
+
+            //from local to world coordinates
+            pos -= rotationCenter;
+
+            //rotate the position
+            cg3::Point3d newPos = rotation.applyRotation(pos);
+
+            //from world to local coordinates
+            newPos += rotationCenter;
+
+            setVertex(i,newPos);
+         }
+         _refreshCharacterPose = true;
+      }
+   }*/
+}
+
+void DrawableCage::rotateRest(const cg3::dQuaternion & rotation)
 {
    if(activateTransformation)
    {
 
+      cg3::Point3d rotationCenter;
+      getSelectedObjectsBarycenter(rotationCenter, true);
+
+      for(int i=0; i<getNumVertices(); ++i)
+      {
+         if(isVertexSelected[i])
+         {
+            cg3::Point3d pos = getRestPoseVertex(i);
+
+            //from local to world coordinates
+            pos -= rotationCenter;
+
+            //rotate the position
+            cg3::Point3d newPos = rotation.applyRotation(pos);
+
+            //from world to local coordinates
+            newPos += rotationCenter;
+
+            setRestPoseVertex(i,newPos);
+         }
+         _refreshCharacterPose = true;
+      }
    }
 }
 

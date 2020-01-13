@@ -726,9 +726,7 @@ void GlCanvas::computePickableObjectsRotation()
 
    for(unsigned long i=0; i<pickableObjects.size(); ++i)
    {
-      pickableObjects[i]->rotate(rotation, rotationCenter);
-      //cg3::Transform transformRotation(rotation);
-      //pickableObjects[i]->rotate(transformRotation, rotationCenter);
+      pickableObjects[i]->rotate(rotation);
    }
 }
 

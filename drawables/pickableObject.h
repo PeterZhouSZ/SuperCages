@@ -17,6 +17,7 @@ public:
    //false otherwise (or if none objects are selected)
    //barycenter contains the center of mass of the selected objects
    virtual bool getSelectedObjectsBarycenter(cg3::Point3d & barycenter) const;
+   virtual bool getSelectedObjectsBarycenter(cg3::Point3d & barycenter, bool option) const;
 
    virtual void selectObject (const unsigned long index) = 0;
    virtual void deselectObject (const unsigned long index) = 0;

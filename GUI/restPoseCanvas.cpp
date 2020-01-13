@@ -362,6 +362,7 @@ void RestPoseCanvas::computePickableObjectsRotation()
    clickConverter.getRotation(rotation, rotationAxis, sceneRadius);
 
    controller->skeleton->rotateRest(rotation);
+   controller->cage->rotateRest(rotation);
 }
 
 void RestPoseCanvas::computePickableObjectsScaling(int direction)

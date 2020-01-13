@@ -263,9 +263,7 @@ void DrawableSkeleton::translate(const cg3::Vec3d & translation)
    }*/
 }
 
-void DrawableSkeleton::rotate(const cg3::dQuaternion & rotation,
-                              const cg3::Point3d & rotationCenter)
-//rimuovi rotation center?
+void DrawableSkeleton::rotate(const cg3::dQuaternion & rotation)
 {
     if(selectedFatherNode != -1 && activateTransformation)
     {

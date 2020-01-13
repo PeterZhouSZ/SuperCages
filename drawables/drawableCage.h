@@ -54,12 +54,12 @@ public:
 
    //Deformation
    void translate (const cg3::Vec3d        & translation);
-   void rotate    (const cg3::dQuaternion  & rotation,
-                   const cg3::Point3d      & rotationCenter);
+   void rotate    (const cg3::dQuaternion  & rotation);
    void scale     (const int                 delta);
 
    //Deformation Rest Pose
    void translateRest (const cg3::Vec3d        & translation);
+   void rotateRest    (const cg3::dQuaternion  & rotation);
    void scaleRest     (const int                 delta);
 
    inline const std::vector<bool> & getSelectedVertices() const

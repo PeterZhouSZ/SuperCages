@@ -15,6 +15,11 @@ bool PickableObject::getSelectedObjectsBarycenter(cg3::Point3d &barycenter) cons
    return false;
 }
 
+bool PickableObject::getSelectedObjectsBarycenter(cg3::Point3d &barycenter, bool option) const
+{
+   return false;
+}
+
 void PickableObject::translate(const cg3::Vec3d &translation)
 {
 
