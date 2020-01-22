@@ -589,9 +589,6 @@ void loadCageAnimation(
       string token;
       iss >> token;
 
-      std::cout << line << std::endl ;
-      std::cout << token << std::endl << std::endl;
-
       if (token.size() > 1) continue; // vn,fn  .... I don't care
 
       if (token[0] == 'k')
