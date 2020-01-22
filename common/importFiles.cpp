@@ -89,7 +89,7 @@ void loadPLY ( const char     * filename,
                vector<double> & vertices,
                vector<int>    & faces)
 {
-   int vnum, fnum;
+   ulong vnum = 0, fnum = 0;
 
    ifstream file(filename);
    if (!file.is_open())
@@ -99,7 +99,7 @@ void loadPLY ( const char     * filename,
    }
 
    string line;
-   unsigned found;
+   ulong found;
    bool flag = false;
 
    //Retrieve informations from headers
@@ -137,7 +137,7 @@ void loadPLY ( const char     * filename,
    //C.QVmesh = VectorXi (vnum);
 
    //Get vertex coordinates for each vertex
-   for(int i=0; i<vnum; i++)
+   for(ulong i=0; i<vnum; i++)
    {
       getline(file, line);
       stringstream linestream(line);
@@ -160,7 +160,7 @@ void loadPLY ( const char     * filename,
 
    }
    int tmp, v0,v1,v2;
-   for(int i=0; i<fnum; i++)
+   for(ulong i=0; i<fnum; i++)
    {
       getline(file, line);
       stringstream linestream(line);
@@ -217,7 +217,8 @@ void loadAnimation(const char * filename,
             areKeyframeInitialized = true;
          }
 
-         double i, x, y, z;
+         ulong i;
+         double x, y, z;
          iss >> i >> x >> y >> z;
          cageKeyframes[i].push_back(x);
          cageKeyframes[i].push_back(y);
@@ -233,7 +234,7 @@ void loadAnimation(const char * filename,
             areKeyframeInitialized = true;
          }
 
-         double i;
+         ulong i;
          double v[16];
          iss >> i >>
                v[ 0] >>
@@ -266,7 +267,7 @@ void loadAnimation(const char * filename,
             areKeyframeInitialized = true;
          }
 
-         double i;
+         ulong i;
          double v[16];
          iss >> i >>
                v[ 0] >>
@@ -421,51 +422,15 @@ void loadWeights(const char *filename, Weights * weights)
    {
       istringstream iss(line);
 
-         int j, i;
+         ulong j, i;
          double w;
          iss >> j >> i >> w;
          weights->setWeight(j,i,w);
-         //cout << "v " << x << " " << y << " " << z << endl;
 
    }
 
    file.close();
 }
-
-/*void loadWeights2(const char *filename, Weights * weights)
-{
-   ifstream file(filename);
-
-   if (!file.is_open())
-   {
-      cerr << "ERROR : " << __FILE__ << ", line " << __LINE__ << " : loadWeights() : couldn't open input file " << filename << endl;
-      exit(-1);
-   }
-
-   string line;
-   while (getline(file, line))
-   {
-      istringstream iss(line);
-
-         int j, i;
-         double w;
-         iss >> i >> j >> w;
-         //std::cout << "W: " << i << "-" << j << ":" << w;
-         if(w>0.0001)
-         {
-            weights->setWeight(j,i,w);
-         }
-         //else {
-            //std::cout << " DELETED";
-         //}
-         //std::cout << std::endl;
-         //cout << "v " << x << " " << y << " " << z << endl;
-
-   }
-
-   file.close();
-}*/
-
 
 void loadSparseWeights(const char *filename, SparseWeights & weights)
 {
@@ -537,7 +502,7 @@ void loadSkelAnimation(
             areKeyframeInitialized = true;
          }
 
-         int i;
+         ulong i;
          double v[16];
          iss >> i >>
                v[ 0] >>
@@ -606,7 +571,8 @@ void loadCageAnimation(
             areKeyframeInitialized = true;
          }
 
-         double i, x, y, z;
+         ulong i;
+         double x, y, z;
          iss >> i >> x >> y >> z;
          cageKeyframes[i].push_back(x);
          cageKeyframes[i].push_back(y);
