@@ -3,7 +3,7 @@ QT += core gui opengl xml widgets
 TARGET   = Supercages
 TEMPLATE = app
 
-CONFIG += c++11
+CONFIG += c++17
 
 #FLAG FOR CUSTOM LIGHTS
 DEFINES += CUSTOM_LIGHTS
@@ -163,8 +163,6 @@ HEADERS = \
     math/leastSquareSolver.h \
     math/quaternion.h \
     geom/ray.h \
-    math/meshReconstructor.h \
-    math/frame.h \
     skinning/dualQuaternionSkinning.h \
     skinning/noCageSkinning.h \
     common/animatorOperations.h \
@@ -172,7 +170,6 @@ HEADERS = \
     external/JM/MEC.h \
     external/JM/point3.h \
     external/JM/MVCoordinates3D.h \
-    external/OBJ-Loader/OBJ_Loader.h \
     GUI/rigPanel.h \
     common/rigOperations.h \
     animation/asyncAnimator.h \
@@ -222,8 +219,6 @@ SOURCES = \
     GUI/toolsPanel.cpp \
     common/characterOperations.cpp \
     math/leastSquareSolver.cpp \
-    math/meshReconstructor.cpp \
-    math/frame.cpp \
     skinning/dualQuaternionSkinning.cpp \
     skinning/noCageSkinning.cpp \
     common/animatorOperations.cpp \
