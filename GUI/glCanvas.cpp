@@ -168,9 +168,9 @@ void GlCanvas::refreshScene()
 
 void GlCanvas::runSkinningPipeline()
 {
-   QElapsedTimer timer;
-   qint64 nanoSec;
-   timer.start();
+   //QElapsedTimer timer;
+   //qint64 nanoSec;
+   //timer.start();
 
    //Skinning
    if(controller->isCageSkinningInitialized &&
@@ -226,8 +226,8 @@ void GlCanvas::runSkinningPipeline()
       //std::cout << std::endl;
    }
 
-   nanoSec = timer.nsecsElapsed();
-   std::cout << nanoSec << std::endl;
+   //nanoSec = timer.nsecsElapsed();
+   //std::cout << nanoSec << std::endl;
 }
 
 void GlCanvas::fitScene()
