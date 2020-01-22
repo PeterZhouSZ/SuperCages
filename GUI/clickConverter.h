@@ -22,8 +22,7 @@ public:
    void updateMouseMovement(const int mouseX, const int mouseY);
    void getTranslation(cg3::Vec3d & translation);
    void getRotation(cg3::dQuaternion & rotation,
-                    cg3::Vec3d & rotationAxis,
-                    const double scaleFactor);
+                    const double scaleFactor = 1.0);
    void generateRay(const int mouseX, const int mouseY, cg3::dRay &ray) const;
 
 private:
