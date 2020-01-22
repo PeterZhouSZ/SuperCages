@@ -97,7 +97,7 @@ void DrawableCage::draw() const
 
          glLineWidth(7.0);
          //glColor4f(0.99, 0.85, 0.39, 0.7);
-         glColor4f(0.20, 0.20, 0.20, 0.8);
+         glColor4f(0.20f, 0.20f, 0.20f, 0.8f);
          //glLineWidth(0.2);
          //glColor4f(0,0,0,0.1);
          glDrawElements(GL_TRIANGLES, tris.size(), GL_UNSIGNED_INT, tris.data());
@@ -170,7 +170,7 @@ void DrawableCage::drawRest() const
          //glColor3f(0.99, 0.85, 0.39);
          glLineWidth(5.0);
          //glColor4f(0.99, 0.85, 0.39, 0.7);
-         glColor4f(0.20, 0.20, 0.20, 0.7);
+         glColor4f(0.20f, 0.20f, 0.20f, 0.7f);
          glDrawElements(GL_TRIANGLES, tris.size(), GL_UNSIGNED_INT, tris.data());
 
          glDisableClientState(GL_VERTEX_ARRAY);
@@ -282,9 +282,9 @@ bool DrawableCage::getSelectedObjectsBarycenter(cg3::Point3d & barycenter, const
       }
    }
 
-   int numberOfSelectedVertices = (int)selectedVerticesPositions.size();
+   ulong numberOfSelectedVertices = selectedVerticesPositions.size();
 
-   for(int i=0; i<numberOfSelectedVertices; ++i)
+   for(ulong i=0; i<numberOfSelectedVertices; ++i)
    {
       if(i==0)
          barycenter = selectedVerticesPositions[0];
@@ -294,23 +294,23 @@ bool DrawableCage::getSelectedObjectsBarycenter(cg3::Point3d & barycenter, const
 
    if(numberOfSelectedVertices)
    {
-      barycenter /= (double)numberOfSelectedVertices;
+      barycenter /= static_cast<double>(numberOfSelectedVertices);
       return true;
    }
 
    return false;
 }
 
-void DrawableCage::selectObject(const unsigned long pickableIndex)
+void DrawableCage::selectObject(const ulong pickableIndex)
 {
-   int vertexIndex = pickableIndex2Vertex[pickableIndex];
+   ulong vertexIndex = pickableIndex2Vertex[pickableIndex];
    isVertexSelected[vertexIndex] = true;
    selectedVertices.insert(vertexIndex);
 }
 
-void DrawableCage::deselectObject(const unsigned long pickableIndex)
+void DrawableCage::deselectObject(const ulong pickableIndex)
 {
-   int vertexIndex = pickableIndex2Vertex[pickableIndex];
+   ulong vertexIndex = pickableIndex2Vertex[pickableIndex];
    isVertexSelected[vertexIndex] = false;
    selectedVertices.erase(vertexIndex);
 }
@@ -318,7 +318,6 @@ void DrawableCage::deselectObject(const unsigned long pickableIndex)
 //Deformation
 void DrawableCage::translate(const cg3::Vec3d & translation)
 {
-   //cg3::Vec3d tr(0.1,0.0,0.0);
    if(activateTransformation)
    {
       for(unsigned long i=0; i<getNumVertices(); ++i)
@@ -329,20 +328,10 @@ void DrawableCage::translate(const cg3::Vec3d & translation)
             lastTranslations[3*i+1] = translation.y();
             lastTranslations[3*i+2] = translation.z();
             cg3::Vec3d deformedPose = getVertex(i);
-            //cg3::Vec3d restPose = getRestPoseVertex(i);
 
             cg3::Vec3d newPose = deformedPose + translation;
 
-            //Create compute local frame method for selected cage vertices
-            //cg3::Vec3d deformedFrameTranslation = deformedPoseFrames[i].GlobalToLocal(translation);
-            //cg3::Vec3d restFrameTranslation = restPoseFrames[i].LocalToGlobal(deformedFrameTranslation);
-            //cg3::Vec3d newRestPose = restPose + restFrameTranslation;
-
-            //Apply the translation to the local frame in rest pose
-            //Convert the local frame in rest pose to global
-            //Apply the translation to the cage vertex in rest pose
             setVertex(i,newPose);
-            //setRestPoseVertex(i,newRestPose);
             _refreshCharacterPose = true;
          }
          else
@@ -358,32 +347,7 @@ void DrawableCage::translate(const cg3::Vec3d & translation)
 
 void DrawableCage::rotate(const cg3::dQuaternion & rotation)
 {
-   /*if(activateTransformation)
-   {
 
-      cg3::Point3d rotationCenter;
-      getSelectedObjectsBarycenter(rotationCenter, false);
-
-      for(int i=0; i<getNumVertices(); ++i)
-      {
-         if(isVertexSelected[i])
-         {
-            cg3::Point3d pos = getVertex(i);
-
-            //from local to world coordinates
-            pos -= rotationCenter;
-
-            //rotate the position
-            cg3::Point3d newPos = rotation.applyRotation(pos);
-
-            //from world to local coordinates
-            newPos += rotationCenter;
-
-            setVertex(i,newPos);
-         }
-         _refreshCharacterPose = true;
-      }
-   }*/
 }
 
 void DrawableCage::rotateRest(const cg3::dQuaternion & rotation)
@@ -394,7 +358,7 @@ void DrawableCage::rotateRest(const cg3::dQuaternion & rotation)
       cg3::Point3d rotationCenter;
       getSelectedObjectsBarycenter(rotationCenter, true);
 
-      for(int i=0; i<getNumVertices(); ++i)
+      for(ulong i=0; i<getNumVertices(); ++i)
       {
          if(isVertexSelected[i])
          {
@@ -441,9 +405,6 @@ void DrawableCage::scale(const int delta)
                   lastTranslations[3*i+1] = -dir.y();
                   lastTranslations[3*i+2] = -dir.z();
                   setVertex(i,pos-dir);
-                  //cg3::Vec3d deformedFrameTransformation = deformedPoseFrames[i].GlobalToLocal(dir);
-                  //cg3::Vec3d restFrameTransformation = restPoseFrames[i].LocalToGlobal(deformedFrameTransformation);
-                  //setRestPoseVertex(i,getRestPoseVertex(i) - restFrameTransformation);
                }
                else
                {
@@ -451,9 +412,6 @@ void DrawableCage::scale(const int delta)
                   lastTranslations[3*i+1] = dir.y();
                   lastTranslations[3*i+2] = dir.z();
                   setVertex(i,pos+dir);
-                  //cg3::Vec3d deformedFrameTransformation = deformedPoseFrames[i].GlobalToLocal(dir);
-                  //cg3::Vec3d restFrameTransformation = restPoseFrames[i].LocalToGlobal(deformedFrameTransformation);
-                  //setRestPoseVertex(i,getRestPoseVertex(i) + restFrameTransformation);
                }
 
                _refreshCharacterPose = true;
@@ -471,7 +429,6 @@ void DrawableCage::scale(const int delta)
 
 void DrawableCage::translateRest(const cg3::Vec3d &translation)
 {
-   //cg3::Vec3d tr(0.1,0.0,0.0);
    if(activateTransformation)
    {
       for(unsigned long i=0; i<getNumVertices(); ++i)

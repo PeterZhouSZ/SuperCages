@@ -3,7 +3,6 @@
 
 #include "geom/trimesh.h"
 #include "common/types.h"
-#include "math/frame.h"
 
 class Cage
       : public Trimesh

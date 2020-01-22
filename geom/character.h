@@ -31,9 +31,9 @@ public:
       return restPoseVertices;
    }
 
-   inline cg3::Vec3<double> getRestPoseVertex(int vId) const
+   inline cg3::Vec3<double> getRestPoseVertex(ulong vId) const
    {
-      int vIdPtr = vId * 3;
+      ulong vIdPtr = vId * 3;
       //TODO: CHECK_BOUNDS(coords, vid_ptr+2);
       return cg3::Vec3<double>(
                   restPoseVertices[vIdPtr + 0],
@@ -42,9 +42,9 @@ public:
              );
    }
 
-   inline void setRestPoseVertex(int vId, cg3::Vec3d newPosition)
+   inline void setRestPoseVertex(ulong vId, cg3::Vec3d newPosition)
    {
-      int vIdPtr = vId * 3;
+      ulong vIdPtr = vId * 3;
       //TODO: CHECK_BOUNDS(coords, vid_ptr+2);
       restPoseVertices[vIdPtr + 0] = newPosition.x();
       restPoseVertices[vIdPtr + 1] = newPosition.y();
@@ -65,7 +65,7 @@ public:
       return getVerticesVector();
    }
 
-   inline cg3::Vec3<double> getActualPoseVertex(int vId) const
+   inline cg3::Vec3<double> getActualPoseVertex(ulong vId) const
    {
       return getVertex(vId);
    }
@@ -101,9 +101,9 @@ public:
       return cagePoseVertices;
    }
 
-   inline cg3::Vec3<double> getCagePoseVertex(int vId) const
+   inline cg3::Vec3<double> getCagePoseVertex(ulong vId) const
    {
-      int vIdPtr = vId * 3;
+      ulong vIdPtr = vId * 3;
       //TODO: CHECK_BOUNDS(coords, vid_ptr+2);
       return cg3::Vec3<double>(
                   cagePoseVertices[vIdPtr + 0],
@@ -112,9 +112,9 @@ public:
              );
    }
 
-   inline void setCagePoseVertex(int vId, cg3::Vec3d newPosition)
+   inline void setCagePoseVertex(ulong vId, cg3::Vec3d newPosition)
    {
-      int vIdPtr = vId * 3;
+      ulong vIdPtr = vId * 3;
       //TODO: CHECK_BOUNDS(coords, vid_ptr+2);
       cagePoseVertices[vIdPtr + 0] = newPosition.x();
       cagePoseVertices[vIdPtr + 1] = newPosition.y();
@@ -130,9 +130,9 @@ public:
       return skelPoseVertices;
    }
 
-   inline cg3::Vec3<double> getSkelPoseVertex(int vId) const
+   inline cg3::Vec3<double> getSkelPoseVertex(ulong vId) const
    {
-      int vIdPtr = vId * 3;
+      ulong vIdPtr = vId * 3;
       //TODO: CHECK_BOUNDS(coords, vid_ptr+2);
       return cg3::Vec3<double>(
                   skelPoseVertices[vIdPtr + 0],
@@ -141,9 +141,9 @@ public:
              );
    }
 
-   inline void setSkelPoseVertex(int vId, cg3::Vec3d newPosition)
+   inline void setSkelPoseVertex(ulong vId, cg3::Vec3d newPosition)
    {
-      int vIdPtr = vId * 3;
+      ulong vIdPtr = vId * 3;
       //TODO: CHECK_BOUNDS(coords, vid_ptr+2);
       skelPoseVertices[vIdPtr + 0] = newPosition.x();
       skelPoseVertices[vIdPtr + 1] = newPosition.y();
@@ -152,7 +152,7 @@ public:
 
    inline void setSkelPoseVector(const std::vector<double> & _vertices){skelPoseVertices = _vertices;}
 
-   //POSE SWAPPING
+   //POSE SWAPPING //are they still used?
 
    inline void setRestPoseAsActual() {setActualPoseVector(restPoseVertices);}
    inline void setCagePoseAsActual() {setActualPoseVector(cagePoseVertices);}
@@ -163,13 +163,13 @@ protected:
 
    //TODO: ELIMINA IMPLEMENTAZIONI DA FILE H
    std::vector<double> restPoseVertices;
-   std::vector<double> restPoseVerticesNormals;
-   std::vector<double> restPoseTrianglesNormals;
-   std::vector<double> cagePoseVertices;
-   std::vector<double> skelPoseVertices;
-   std::vector<double> skelCageBlendVertices;
+   std::vector<double> restPoseVerticesNormals; //are they still used?
+   std::vector<double> restPoseTrianglesNormals; //are they still used?
+   std::vector<double> cagePoseVertices; //are they still used?
+   std::vector<double> skelPoseVertices; //are they still used?
+   std::vector<double> skelCageBlendVertices; //are they still used?
 
-   double blendValue;
+   double blendValue; //are they still used?
 
    void updateVerticesNormals();
    void updateTrisNormals();

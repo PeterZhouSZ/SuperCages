@@ -49,8 +49,8 @@ public:
 
    //PickableObject interface
    bool getSelectedObjectsBarycenter(cg3::Point3d & barycenter, const bool restPose = false) const;
-   void selectObject(const unsigned long pickableIndex);
-   void deselectObject(const unsigned long pickableIndex);
+   void selectObject(const ulong pickableIndex);
+   void deselectObject(const ulong pickableIndex);
 
    //Deformation
    void translate (const cg3::Vec3d        & translation);
@@ -75,10 +75,10 @@ protected:
 
    //technical stuff for picking
    PickerController* pickerController;
-   std::map<int,int> pickableIndex2Vertex;
-   std::map<int,int> vertex2PickableIndex;
+   std::map<ulong,ulong> pickableIndex2Vertex;
+   std::map<ulong,ulong> vertex2PickableIndex;
    std::vector<bool> isVertexSelected;
-   std::unordered_set<int> selectedVertices;
+   std::unordered_set<ulong> selectedVertices;
    //Moved in cage //std::vector<double> lastTranslations;
 
 };

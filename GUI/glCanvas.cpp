@@ -205,7 +205,7 @@ void GlCanvas::fitScene()
 
    int numberOfValidObjectCentroid = 0;
 
-   for(int i=0; i<drawableObjects.size(); ++i)
+   for(ulong i=0; i<drawableObjects.size(); ++i)
    {
       const DrawableObject * obj = drawableObjects[i];
 

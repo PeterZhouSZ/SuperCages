@@ -77,7 +77,7 @@ void  AsyncAnimator::addCageKeyframe(
                             double t,
                             const std::vector<double> & cageKeyframe)
 {
-   int i=0;
+   ulong i=0;
 
    //std::vector<double>::iterator it = keyframeTime.begin();
    while(i<cageKeyframeTime.size() && cageKeyframeTime[i] < t )
@@ -99,7 +99,7 @@ void  AsyncAnimator::addSkelKeyframe(
                             double t,
                             const std::vector<cg3::Transform> & skelKeyframe)
 {
-   int i=0;
+   ulong i=0;
 
    //std::vector<double>::iterator it = keyframeTime.begin();
    while(i<skelKeyframeTime.size() && skelKeyframeTime[i] < t )

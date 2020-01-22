@@ -15,6 +15,7 @@ void loadMesh    (const char            * filename,
 {
    string str(filename);
    string filetype = str.substr(str.size()-3,3);
+   uv.clear();
 
    if ( filetype.compare("obj") == 0 ||
         filetype.compare("OBJ") == 0    )
@@ -302,13 +303,12 @@ void loadMAXVOL (const char                * filename,
         exit(-1);
     }
 
-    int nv;
-
-    fscanf(fp, "MAXVOLSELECTION %d", &nv);
+    ulong nv;
+    fscanf(fp, "MAXVOLSELECTION %ld", &nv);
 
     selectedvertices.resize( nv );
     std::cout << "MAXVOLSELECTION : ";
-    for( unsigned int vIt = 0 ; vIt < nv ; ++vIt ) {
+    for( ulong vIt = 0 ; vIt < nv ; ++vIt ) {
         fscanf(fp, "%d", &(selectedvertices[vIt]));
         std::cout << selectedvertices[vIt] << "  ";
     }
@@ -349,7 +349,7 @@ void loadOFF(const char            * filename,
 
     for(int i=0; i<npoly; ++i)
     {
-        int n_corners, v0, v1, v2, v3;
+        int n_corners, v0, v1, v2;
         fscanf(fp, "%d", &n_corners);
 
         if (n_corners == 3)

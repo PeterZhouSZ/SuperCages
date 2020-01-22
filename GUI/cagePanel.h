@@ -12,7 +12,7 @@ class CagePanel : public QDockWidget
    Q_OBJECT
 
 public:
-   explicit CagePanel(QWidget *parent = 0);
+   explicit CagePanel(QWidget *parent = nullptr);
    ~CagePanel();
 
 private:

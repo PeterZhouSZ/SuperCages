@@ -23,9 +23,6 @@ void loadPLY   (const char                * filename,
 void loadWeights  (const char    * filename,
                    Weights       * weights);
 
-/*void loadWeights2(const char *filename,
-                  Weights *weights);*/
-
 void loadSparseWeights(const char *filename,
                        SparseWeights & weights);
 

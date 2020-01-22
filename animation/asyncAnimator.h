@@ -44,14 +44,14 @@ public:
 
    void setAnimationSpeed(double s);
 
-   inline int getNumberOfSkelKeyframes() const {return skelKeyframeTime.size();}
-   inline int getNumberOfCageKeyframes() const {return cageKeyframeTime.size();}
-   inline int getSkelKeyframeIndex() const {return playingSkelKeyframeIndex;}
-   inline int getCageKeyframeIndex() const {return playingCageKeyframeIndex;}
+   inline auto getNumberOfSkelKeyframes() const {return skelKeyframeTime.size();}
+   inline auto getNumberOfCageKeyframes() const {return cageKeyframeTime.size();}
+   inline auto getSkelKeyframeIndex() const {return playingSkelKeyframeIndex;}
+   inline auto getCageKeyframeIndex() const {return playingCageKeyframeIndex;}
    const std::vector<double> & getSkelKeyframeTimeVector() const;
    const std::vector<double> & getCageKeyframeTimeVector() const;
    const std::vector<std::vector<cg3::Transform>> & getSkelKeyframeVector() const;
-   const std::vector<std::vector<double> > &getCageKeyframeVector() const;
+   const std::vector<std::vector<double> > & getCageKeyframeVector() const;
 
 
    void loadSkelAnimation(const std::vector<double> &_tSkel,
@@ -62,7 +62,7 @@ private:
    std::vector<double> cageKeyframeTime;
    std::vector<double> skelKeyframeTime;
    std::vector<std::vector<double>> cageKeyframes;
-   std::vector<std::vector<cg3::Transform>> skelKeyframes;  //only rotations!
+   std::vector<std::vector<cg3::Transform>> skelKeyframes;  //just rotations!
 
    Cage * cage;
    Skeleton * skel;
