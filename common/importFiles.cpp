@@ -475,6 +475,7 @@ void loadSkelAnimation(
 
    string line;
    bool areKeyframeInitialized = false;
+   bool isKeyframeALclMatrix = true;
    while (getline(file, line))
    {
       istringstream iss(line);
@@ -486,6 +487,8 @@ void loadSkelAnimation(
       //std::cout << token << std::endl << std::endl;
 
       if (token.size() > 1) continue; // vn,fn  .... I don't care
+
+      if (token[0] == 't') isKeyframeALclMatrix = false;
 
       if (token[0] == 'k')
       {
@@ -503,8 +506,10 @@ void loadSkelAnimation(
          }
 
          ulong i;
-         double v[16];
-         iss >> i >>
+         if(isKeyframeALclMatrix)
+         {
+            double v[16];
+            iss >> i >>
                v[ 0] >>
                v[ 1] >>
                v[ 2] >>
@@ -521,9 +526,23 @@ void loadSkelAnimation(
                v[13] >>
                v[14] >>
                v[15];
-         cg3::Transform t(v);
+            cg3::Transform t(v);
+            skelKeyframes[i].push_back(t);
+         }
+         else
+         {
+            double v[6];
+            iss >> i >>
+               v[ 0] >>
+               v[ 1] >>
+               v[ 2] >>
+               v[ 3] >>
+               v[ 4] >>
+               v[ 5];
+            cg3::Transform t(v);
+            skelKeyframes[i].push_back(t);
+         }
 
-         skelKeyframes[i].push_back(t);
       }
    }
    file.close();
