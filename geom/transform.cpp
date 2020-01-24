@@ -15,6 +15,22 @@ Transform::Transform(double tx, double ty, double tz)
    transformation = translation;
 }
 
+//Euler angles+translation
+Transform::Transform(double rx, double ry, double rz, double tx, double ty, double tz)
+{
+   constexpr double gradToRad = M_PI / 180;
+
+   cg3::Transform T_rx (cg3::dQuaternion(cg3::Vec3d(1.0,0.0,0.0),rx*gradToRad));
+   cg3::Transform T_ry (cg3::dQuaternion(cg3::Vec3d(0.0,1.0,0.0),ry*gradToRad));
+   cg3::Transform T_rz (cg3::dQuaternion(cg3::Vec3d(0.0,0.0,1.0),rz*gradToRad));
+
+   cg3::Transform r = T_rz.cumulateWith(T_ry.cumulateWith(T_rx));
+
+   cg3::Transform t (tx, ty, tz);
+
+   transformation=(t.cumulateWith(r)).transformation;
+}
+
 Transform::Transform(dQuaternion r)
 {
    Eigen::Quaterniond rotation(r.s(), r.x(), r.y(), r.z());

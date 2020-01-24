@@ -540,7 +540,7 @@ void loadSkelAnimation(
                v[ 4] >>
                v[ 5];
 
-            const double gradToRad = M_PI / 180;
+            /*const double gradToRad = M_PI / 180;
 
             cg3::Transform rx (cg3::dQuaternion(cg3::Vec3d(1.0,0.0,0.0),v[0]*gradToRad));
             cg3::Transform ry (cg3::dQuaternion(cg3::Vec3d(0.0,1.0,0.0),v[1]*gradToRad));
@@ -551,7 +551,8 @@ void loadSkelAnimation(
             cg3::Transform t (v[3], v[4], v[5]);
 
 
-            cg3::Transform T(t.cumulateWith(r));
+            cg3::Transform T(t.cumulateWith(r));*/
+            cg3::Transform T(v[0],v[1],v[2],v[3],v[4],v[5]);
             skelKeyframes[i].push_back(T);
          }
 
