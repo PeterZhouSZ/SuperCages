@@ -18,6 +18,8 @@ Transform::Transform(double tx, double ty, double tz)
 //Euler angles+translation
 Transform::Transform(double rx, double ry, double rz, double tx, double ty, double tz)
 {
+
+   //TO DO: Optimize this
    constexpr double gradToRad = M_PI / 180;
 
    cg3::Transform T_rx (cg3::dQuaternion(cg3::Vec3d(1.0,0.0,0.0),rx*gradToRad));
