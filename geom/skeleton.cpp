@@ -172,7 +172,7 @@ void Skeleton::setKeyframe(const std::vector<cg3::Transform> & keyframe)
 {
    for(unsigned long i = 0; i < nodes.size(); ++i)
    {
-      nodes[i].localTCurrent = keyframe[i];
+      nodes[i].localTCurrent = nodes[i].localTRest.cumulateWith(keyframe[i]);
    }
 
    for(int i:rootIndexes)
@@ -193,8 +193,8 @@ void Skeleton::interpolateKeyframes(const std::vector<cg3::Transform> & keyframe
    for(unsigned long i = 0; i < nodes.size(); ++i)
    {
 
-      nodes[i].localTCurrent =
-            keyframeLow[i].interpolate(keyframeTop[i],a);
+      nodes[i].localTCurrent = nodes[i].localTRest.cumulateWith(
+            keyframeLow[i].interpolate(keyframeTop[i],a));
    }
 
    for(int i:rootIndexes)
