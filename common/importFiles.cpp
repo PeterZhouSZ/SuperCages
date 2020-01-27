@@ -23,22 +23,22 @@ void loadMesh    (const char            * filename,
       loadOBJ(filename, vertices, faces);
    }
    else
-   if ( filetype.compare("ply") == 0 ||
-        filetype.compare("PLY") == 0   )
-   {
-      loadPLY(filename, vertices, faces);
-   }
-   else
-   if ( filetype.compare("off") == 0 ||
-        filetype.compare("OFF") == 0   )
-   {
-      loadOFF(filename, vertices, faces);
-   }
-   else
-   {
-      cerr << "ERROR : " << __FILE__ << ", line " << __LINE__ << " : loadMesh() : file format not supported yet " << endl;
-      exit(-1);
-   }
+      if ( filetype.compare("ply") == 0 ||
+           filetype.compare("PLY") == 0   )
+      {
+         loadPLY(filename, vertices, faces);
+      }
+      else
+         if ( filetype.compare("off") == 0 ||
+              filetype.compare("OFF") == 0   )
+         {
+            loadOFF(filename, vertices, faces);
+         }
+         else
+         {
+            cerr << "ERROR : " << __FILE__ << ", line " << __LINE__ << " : loadMesh() : file format not supported yet " << endl;
+            exit(-1);
+         }
 }
 
 void loadOBJ (const char            * filename,
@@ -143,11 +143,11 @@ void loadPLY ( const char     * filename,
       stringstream linestream(line);
       linestream >> x >> y >> z;
       //if(flag)
-         //linestream >> x >> y >> z >> flags >> quality >>
-         //              u >> v;
-       //else
-         //linestream >> x >> y >> z >> quality >>
-         //              u >> v;
+      //linestream >> x >> y >> z >> flags >> quality >>
+      //              u >> v;
+      //else
+      //linestream >> x >> y >> z >> quality >>
+      //              u >> v;
 
       //Save coordinates for each vertex
       vertices.push_back(x);
@@ -296,78 +296,78 @@ void loadAnimation(const char * filename,
 
 void loadMAXVOL (const char                * filename,
                  std::vector<int>        & selectedvertices ) {
-    FILE *fp = fopen(filename, "r");
+   FILE *fp = fopen(filename, "r");
 
-    if(!fp)
-    {
-        std::cerr << "ERROR : " << __FILE__ << ", line " << __LINE__ << " : read_OFF() : couldn't open input file " << filename << endl;
-        exit(-1);
-    }
+   if(!fp)
+   {
+      std::cerr << "ERROR : " << __FILE__ << ", line " << __LINE__ << " : read_OFF() : couldn't open input file " << filename << endl;
+      exit(-1);
+   }
 
-    ulong nv;
-    fscanf(fp, "MAXVOLSELECTION %ld", &nv);
+   ulong nv;
+   fscanf(fp, "MAXVOLSELECTION %ld", &nv);
 
-    selectedvertices.resize( nv );
-    std::cout << "MAXVOLSELECTION : ";
-    for( ulong vIt = 0 ; vIt < nv ; ++vIt ) {
-        fscanf(fp, "%d", &(selectedvertices[vIt]));
-        std::cout << selectedvertices[vIt] << "  ";
-    }
-    std::cout << std::endl << std::endl;
+   selectedvertices.resize( nv );
+   std::cout << "MAXVOLSELECTION : ";
+   for( ulong vIt = 0 ; vIt < nv ; ++vIt ) {
+      fscanf(fp, "%d", &(selectedvertices[vIt]));
+      std::cout << selectedvertices[vIt] << "  ";
+   }
+   std::cout << std::endl << std::endl;
 
-    fclose(fp);
+   fclose(fp);
 }
 
 void loadOFF(const char            * filename,
              std::vector<double>   & vertices,
              std::vector<int>      & faces   )
 {
-    setlocale(LC_NUMERIC, "en_US.UTF-8"); // makes sure "." is the decimal separator
+   setlocale(LC_NUMERIC, "en_US.UTF-8"); // makes sure "." is the decimal separator
 
-    FILE *fp = fopen(filename, "r");
+   FILE *fp = fopen(filename, "r");
 
-    if(!fp)
-    {
-        std::cerr << "ERROR : " << __FILE__ << ", line " << __LINE__ << " : read_OFF() : couldn't open input file " << filename << endl;
-        exit(-1);
-    }
+   if(!fp)
+   {
+      std::cerr << "ERROR : " << __FILE__ << ", line " << __LINE__ << " : read_OFF() : couldn't open input file " << filename << endl;
+      exit(-1);
+   }
 
-    int nv, npoly, dummy;
+   int nv, npoly, dummy;
 
-    fscanf(fp, "OFF\n");
-    fscanf(fp, "%d %d %d\n", &nv, &npoly, &dummy);
+   fscanf(fp, "OFF\n");
+   fscanf(fp, "%d %d %d\n", &nv, &npoly, &dummy);
 
-    for(int i=0; i<nv; ++i)
-    {
-        // http://stackoverflow.com/questions/16839658/printf-width-specifier-to-maintain-precision-of-floating-point-value
-        //
-        double x, y, z;
-        fscanf(fp, "%lf %lf %lf\n", &x, &y, &z);
-        vertices.push_back(x);
-        vertices.push_back(y);
-        vertices.push_back(z);
-    }
+   for(int i=0; i<nv; ++i)
+   {
+      // http://stackoverflow.com/questions/16839658/printf-width-specifier-to-maintain-precision-of-floating-point-value
+      //
+      double x, y, z;
+      fscanf(fp, "%lf %lf %lf\n", &x, &y, &z);
+      vertices.push_back(x);
+      vertices.push_back(y);
+      vertices.push_back(z);
+   }
 
-    for(int i=0; i<npoly; ++i)
-    {
-        int n_corners, v0, v1, v2;
-        fscanf(fp, "%d", &n_corners);
+   for(int i=0; i<npoly; ++i)
+   {
+      int n_corners, v0, v1, v2;
+      fscanf(fp, "%d", &n_corners);
 
-        if (n_corners == 3)
-        {
-            fscanf(fp, "%d %d %d\n", &v0, &v1, &v2);
-            faces.push_back(v0);
-            faces.push_back(v1);
-            faces.push_back(v2);
-        }
-        else
-        {
-            std::cout << "read_OFF: polygons with " << n_corners << " corners are not supported!" << std::endl;
-            return;
-        }
-    }
+      if (n_corners == 3)
+      {
+         fscanf(fp, "%d %d %d\n", &v0, &v1, &v2);
+         faces.push_back(v0);
+         faces.push_back(v1);
+         faces.push_back(v2);
+      }
+      else
+      {
+         std::cout << "read_OFF: polygons with " << n_corners << " corners are not supported!" << std::endl;
+         return;
+      }
+   }
 
-    fclose(fp);
+   fclose(fp);
 }
 
 void loadSkeleton(const char                  * filename,
@@ -422,10 +422,10 @@ void loadWeights(const char *filename, Weights * weights)
    {
       istringstream iss(line);
 
-         ulong j, i;
-         double w;
-         iss >> j >> i >> w;
-         weights->setWeight(j,i,w);
+      ulong j, i;
+      double w;
+      iss >> j >> i >> w;
+      weights->setWeight(j,i,w);
 
    }
 
@@ -447,12 +447,12 @@ void loadSparseWeights(const char *filename, SparseWeights & weights)
    {
       istringstream iss(line);
 
-         int j, i;
-         double w;
-         iss >> i >> j >> w;
-         {
-            weights.setWeight(j,i,w);
-         }
+      int j, i;
+      double w;
+      iss >> i >> j >> w;
+      {
+         weights.setWeight(j,i,w);
+      }
 
    }
 
@@ -460,9 +460,10 @@ void loadSparseWeights(const char *filename, SparseWeights & weights)
 }
 
 void loadSkelAnimation(
-                   const char                       * filename,
-                   std::vector<double>              & t,
-                   std::vector<std::vector<cg3::Transform>> & skelKeyframes)
+      const char                       * filename,
+      const double                       charScaleFactor,
+      std::vector<double>              & t,
+      std::vector<std::vector<cg3::Transform>> & skelKeyframes)
 {
 
    ifstream file(filename);
@@ -475,7 +476,6 @@ void loadSkelAnimation(
 
    string line;
    bool areKeyframeInitialized = false;
-   bool isKeyframeALclMatrix = true;
    while (getline(file, line))
    {
       istringstream iss(line);
@@ -487,8 +487,6 @@ void loadSkelAnimation(
       //std::cout << token << std::endl << std::endl;
 
       if (token.size() > 1) continue; // vn,fn  .... I don't care
-
-      if (token[0] == 't') isKeyframeALclMatrix = false;
 
       if (token[0] == 'k')
       {
@@ -506,42 +504,27 @@ void loadSkelAnimation(
          }
 
          ulong i;
-         if(isKeyframeALclMatrix)
-         {
-            double v[16];
-            iss >> i >>
-               v[ 0] >>
-               v[ 1] >>
-               v[ 2] >>
-               v[ 3] >>
-               v[ 4] >>
-               v[ 5] >>
-               v[ 6] >>
-               v[ 7] >>
-               v[ 8] >>
-               v[ 9] >>
-               v[10] >>
-               v[11] >>
-               v[12] >>
-               v[13] >>
-               v[14] >>
-               v[15];
-            cg3::Transform t(v);
-            skelKeyframes[i].push_back(t);
-         }
-         else
-         {
-            double v[6];
-            iss >> i >>
+
+         double v[6];
+         iss >> i >>
                v[ 0] >>
                v[ 1] >>
                v[ 2] >>
                v[ 3] >>
                v[ 4] >>
                v[ 5];
-            cg3::Transform T(v[0],v[1],v[2],v[3],v[4],v[5]);
-            skelKeyframes[i].push_back(T);
-         }
+
+         cg3::Transform T(
+               v[0],
+               v[1],
+               v[2],
+               v[3]*charScaleFactor,
+               v[4]*charScaleFactor,
+               v[5]*charScaleFactor
+               );
+
+         skelKeyframes[i].push_back(T);
+
 
       }
    }
@@ -551,9 +534,9 @@ void loadSkelAnimation(
 
 
 void loadCageAnimation(
-                   const char                       * filename,
-                   std::vector<double>              & t,
-                   std::vector<std::vector<double>> & cageKeyframes)
+      const char                       * filename,
+      std::vector<double>              & t,
+      std::vector<std::vector<double>> & cageKeyframes)
 {
 
    ifstream file(filename);

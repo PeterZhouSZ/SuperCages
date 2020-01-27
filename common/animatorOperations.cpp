@@ -55,12 +55,15 @@ void loadSkelAnimationFromFile()
 
          std::cout << "Loading animation: " << filename << std::endl;
 
+         double charRadius = 0.0;   c->character->sceneRadius(charRadius);
          std::vector<double> t;
          std::vector<std::vector<cg3::Transform>> skelKeyframes;
 
-         loadSkelAnimation(filename.c_str(),
-                       t,
-                       skelKeyframes);
+         loadSkelAnimation(
+                  filename.c_str(),
+                  charRadius,
+                  t,
+                  skelKeyframes);
 
          c->asyncAnimator->loadSkelAnimation(t,skelKeyframes);
       }
@@ -77,8 +80,8 @@ void saveSkelAnimationToFile()
       if(c->isAnimatorInitialized)
       {
          saveSkelAnimation(filename.c_str(),
-                       c->asyncAnimator->getSkelKeyframeTimeVector(),
-                       c->asyncAnimator->getSkelKeyframeVector());
+                           c->asyncAnimator->getSkelKeyframeTimeVector(),
+                           c->asyncAnimator->getSkelKeyframeVector());
       }
    }
 }
@@ -100,9 +103,9 @@ void loadCageAnimationFromFile()
          std::vector<std::vector<double>> cageKeyframes;
 
          loadCageAnimation(
-                       filename.c_str(),
-                       t,
-                       cageKeyframes);
+                  filename.c_str(),
+                  t,
+                  cageKeyframes);
 
          c->asyncAnimator->loadCageAnimation(t,cageKeyframes);
       }
@@ -120,43 +123,43 @@ void saveCageAnimationToFile()
       if(c->isAnimatorInitialized)
       {
          saveCageAnimation(filename.c_str(),
-                       c->asyncAnimator->getCageKeyframeTimeVector(),
-                       c->asyncAnimator->getCageKeyframeVector());
+                           c->asyncAnimator->getCageKeyframeTimeVector(),
+                           c->asyncAnimator->getCageKeyframeVector());
       }
    }
 }
 
 void quickLoadSkelAnimation(const char * filename)
 {
-   Controller * c = Controller::get();
+   /*Controller * c = Controller::get();
 
-      if(c->isAnimatorInitialized)
-      {
-         std::vector<double> t;
-         std::vector<std::vector<cg3::Transform>> skelKeyframes;
+   if(c->isAnimatorInitialized)
+   {
+      std::vector<double> t;
+      std::vector<std::vector<cg3::Transform>> skelKeyframes;
 
-         loadSkelAnimation(filename,
-                       t,
-                       skelKeyframes);
+      loadSkelAnimation(filename,
+                        t,
+                        skelKeyframes);
 
-         c->asyncAnimator->loadSkelAnimation(t,skelKeyframes);
-      }
+      c->asyncAnimator->loadSkelAnimation(t,skelKeyframes);
+   }*/
 }
 
 void quickLoadCageAnimation(const char * filename)
 {
    Controller * c = Controller::get();
 
-      if(c->isAnimatorInitialized)
-      {
-         std::vector<double> t;
-         std::vector<std::vector<double>> cageKeyframes;
+   if(c->isAnimatorInitialized)
+   {
+      std::vector<double> t;
+      std::vector<std::vector<double>> cageKeyframes;
 
-         loadCageAnimation(filename,
-                       t,
-                       cageKeyframes);
-         c->asyncAnimator->loadCageAnimation(t,cageKeyframes);
-      }
+      loadCageAnimation(filename,
+                        t,
+                        cageKeyframes);
+      c->asyncAnimator->loadCageAnimation(t,cageKeyframes);
+   }
 }
 
 void addSkelKeyframe()
@@ -167,7 +170,7 @@ void addSkelKeyframe()
 
       bool ok;
       double t = QInputDialog::getDouble(c->mainWindow, "Keyframe time (in seconds)",
-                                        "Second: ", 0, 0, 2147483647, 6, &ok);
+                                         "Second: ", 0, 0, 2147483647, 6, &ok);
       if (ok && t>=0)
       {
          //skel keyframe
@@ -350,7 +353,7 @@ void editSkelKeyframeTime(int index)
       bool ok;
       double actualTime = c->asyncAnimator->getSkelKeyframeTimeVector()[index];
       double t = QInputDialog::getDouble(c->mainWindow, "Keyframe time (in seconds)",
-                                        "Second: ", actualTime, 0, 2147483647, 6, &ok);
+                                         "Second: ", actualTime, 0, 2147483647, 6, &ok);
       if (ok && t>0)
       {
          c->asyncAnimator->editSkelKeyframeTime(index, t);
@@ -367,7 +370,7 @@ void editCageKeyframeTime(int index)
       bool ok;
       double actualTime = c->asyncAnimator->getCageKeyframeTimeVector()[index];
       double t = QInputDialog::getDouble(c->mainWindow, "Keyframe time (in seconds)",
-                                        "Second: ", actualTime, 0, 2147483647, 6, &ok);
+                                         "Second: ", actualTime, 0, 2147483647, 6, &ok);
       if (ok && t>0)
       {
          c->asyncAnimator->editCageKeyframeTime(index, t);

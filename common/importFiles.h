@@ -45,10 +45,10 @@ void loadSkeleton(
                   std::vector<int>            & fathers,
                   std::vector<std::string>    & names);
 
-void loadSkelAnimation(
-                   const char                       * filename,
-                   std::vector<double>              & t,
-                   std::vector<std::vector<cg3::Transform>> & skelKeyframes);
+void loadSkelAnimation(const char                       * filename,
+                       const double                       charScaleFactor,
+                       std::vector<double>              & t,
+                       std::vector<std::vector<cg3::Transform>> & skelKeyframes);
 
 void loadCageAnimation(
                    const char                       * filename,
