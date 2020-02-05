@@ -508,6 +508,8 @@ void GlCanvas::wheelEvent(QWheelEvent *e)
 
       controller->skeletonSkinning->deform();
       controller->cageUpdater->updatePosition();
+      controller->character->updateNormals();
+      controller->character->updateCutVerticesPosition();
 
       controller->cage->characterPoseRefreshed();
       controller->character->updateNormals();
