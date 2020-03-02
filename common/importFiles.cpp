@@ -461,7 +461,6 @@ void loadSparseWeights(const char *filename, SparseWeights & weights)
 
 void loadSkelAnimation(
       const char                       * filename,
-      const double                       charScaleFactor,
       std::vector<double>              & t,
       std::vector<std::vector<cg3::Transform>> & skelKeyframes)
 {
@@ -518,9 +517,9 @@ void loadSkelAnimation(
                v[0],
                v[1],
                v[2],
-               v[3]*charScaleFactor,
-               v[4]*charScaleFactor,
-               v[5]*charScaleFactor
+               v[3],
+               v[4],
+               v[5]
                );
 
          skelKeyframes[i].push_back(T);

@@ -46,7 +46,6 @@ void loadSkeleton(
                   std::vector<std::string>    & names);
 
 void loadSkelAnimation(const char                       * filename,
-                       const double                       charScaleFactor,
                        std::vector<double>              & t,
                        std::vector<std::vector<cg3::Transform>> & skelKeyframes);
 

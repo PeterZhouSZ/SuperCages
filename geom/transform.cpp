@@ -91,6 +91,22 @@ dQuaternion Transform::getRotation() const
    return cg3::dQuaternion (q.x(),q.y(),q.z(),q.w());
 }
 
+Vec3d Transform::getEuler() const
+{
+   //super UGLY
+   std::vector<double> mat(16);
+   data(mat);
+
+   Eigen::Matrix3d m; //It is column major
+
+   m.col(0) = Eigen::Vector3d(mat[0]  , mat[1]  , mat[2]  );
+   m.col(1) = Eigen::Vector3d(mat[4]  , mat[5]  , mat[6]  );
+   m.col(2) = Eigen::Vector3d(mat[8]  , mat[9]  , mat[10] );
+
+   Eigen::Vector3d vecE = m.eulerAngles(2,1,0);
+   return cg3::Vec3d(vecE[0], vecE[1], vecE[2]);
+}
+
 void Transform::setToZero()
 {
    Eigen::Matrix4d m;

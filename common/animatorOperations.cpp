@@ -61,7 +61,6 @@ void loadSkelAnimationFromFile()
 
          loadSkelAnimation(
                   filename.c_str(),
-                  charRadius,
                   t,
                   skelKeyframes);
 

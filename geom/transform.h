@@ -27,6 +27,7 @@ public:
 
    cg3::Vec3d getTranslation() const;
    cg3::dQuaternion getRotation() const;
+   cg3::Vec3d getEuler() const;
 
    void setToZero();
 
