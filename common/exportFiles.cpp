@@ -219,6 +219,7 @@ void saveSkelAnimation (
    fp.precision(6);
    fp.setf( std::ios::fixed, std::ios::floatfield ); // floatfield set to fixed
 
+
    if(!fp)
    {
       cerr << "ERROR : " << __FILE__ << ", line " << __LINE__ << " : saveWeights() : couldn't open output file " << filename << endl;
@@ -237,7 +238,7 @@ void saveSkelAnimation (
 
       for( unsigned long j = 0; j < skelKeyframes[i].size(); ++j )
       {
-         cg3::Vec3d r = skelKeyframes[i][j].getEuler();
+         cg3::Vec3d r = skelKeyframes[i][j].getRotation().toEuler();
          cg3::Vec3d t = skelKeyframes[i][j].getTranslation();
 
          fp << "s "  //skel

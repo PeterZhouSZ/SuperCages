@@ -14,7 +14,7 @@ namespace cg3 {
 template<class T> class Quaternion
 {
 
-//friend class DualQuaternion;
+   //friend class DualQuaternion;
 
 private:
 
@@ -52,7 +52,7 @@ public:
 
    inline const T *ptr() const
    {
-       return _v;
+      return _v;
    }
 
    inline T & x() { return _x; }
@@ -69,12 +69,12 @@ public:
 
    inline T & operator[](const int i)
    {
-       return _v[i];
+      return _v[i];
    }
 
    inline const T & operator[](const int i) const
    {
-       return _v[i];
+      return _v[i];
    }
 
    inline void setZero() { _x = _y = _z = _s = 0.0; }
@@ -116,7 +116,7 @@ public:
                _y * _y +
                _z * _z +
                _s * _s
-             );
+               );
    }
 
    inline T norm() const
@@ -137,9 +137,9 @@ public:
    inline T dot(const Quaternion<T> & other)
    {
       return _x * other._x +
-             _y * other._y +
-             _z * other._z +
-             _s * other._s;
+            _y * other._y +
+            _z * other._z +
+            _s * other._s;
    }
 
    inline Quaternion<T> inverse() const
@@ -169,6 +169,33 @@ public:
       Quaternion<T> result = ((*this) * vq * conjugate());  //TODO: Optimize
 
       return Vec3<T>(result.x(), result.y(), result.z());
+   }
+
+   inline Vec3<T> toEuler() const
+   {
+      constexpr double radToGrad = 180 / M_PI;
+
+      //code from https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+
+      // roll (x-axis rotation)
+      T sinr_cosp = 2 * (_s * _x + _y * _z);
+      T cosr_cosp = 1 - 2 * (_x * _x + _y * _y);
+      T roll = std::atan2(sinr_cosp, cosr_cosp);
+
+      // pitch (y-axis rotation)
+      T sinp = 2 * (_s * _y - _z * _x);
+      T pitch;
+      if (std::abs(sinp) >= 1)
+         pitch = std::copysign(M_PI / 2, sinp); // use 90 degrees if out of range
+      else
+         pitch = std::asin(sinp);
+
+      // yaw (z-axis rotation)
+      T siny_cosp = 2 * (_s * _z + _x * _y);
+      T cosy_cosp = 1 - 2 * (_y * _y + _z * _z);
+      T yaw = std::atan2(siny_cosp, cosy_cosp);
+
+      return Vec3<T>(roll*radToGrad, pitch*radToGrad, yaw*radToGrad);
    }
 
 };
