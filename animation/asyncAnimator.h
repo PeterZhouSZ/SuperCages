@@ -3,8 +3,8 @@
 
 #include <QTime>
 
-#include "geom/cage.h"
-#include "geom/skeleton.h"
+#include "rigs/cage.h"
+#include "rigs/skeleton.h"
 #include "geom/transform.h"
 
 

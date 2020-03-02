@@ -2,8 +2,8 @@
 #define MEANVALUECOORDINATES_H
 
 #include "skinning/weights.h"
-#include "geom/character.h"
-#include "geom/cage.h"
+#include "rigs/character.h"
+#include "rigs/cage.h"
 #include "geom/vec3.h"
 #include "skinning/cageSkinning.h"
 

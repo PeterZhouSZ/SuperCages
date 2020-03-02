@@ -2,8 +2,8 @@
 #define SKELETONSKINNING_H
 
 #include "skinning/weights.h"
-#include "geom/character.h"
-#include "geom/skeleton.h"
+#include "rigs/character.h"
+#include "rigs/skeleton.h"
 #include "geom/transform.h"
 
 class SkeletonSkinning

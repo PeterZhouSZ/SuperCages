@@ -1,4 +1,4 @@
-#include "geom/cage.h"
+#include "rigs/cage.h"
 #include "geom/plane.h"
 #include "iostream"
 

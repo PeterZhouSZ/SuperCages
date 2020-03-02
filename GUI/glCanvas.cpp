@@ -26,7 +26,7 @@
 #include "QGLViewer/manipulatedCameraFrame.h"
 #include "operators/cageUpdater.h"
 #include "operators/skeletonUpdater.h"
-#include "operators/cageTranslator.h"
+#include "operators/cageReverser.h"
 #include "animation/asyncAnimator.h"
 #include "skinning/corSkinning.h"
 

@@ -33,7 +33,7 @@ class AnimatorPanel;
 class AsyncAnimatorPanel;
 class ToolsPanel;
 
-class CageTranslator;
+class CageReverser;
 class CageUpdater;
 class SkeletonUpdater;
 
@@ -72,7 +72,7 @@ public:
    AsyncAnimator          * asyncAnimator;
 
    //SuperCages
-   CageTranslator         * cageTranslator;
+   CageReverser         * cageTranslator;
    CageUpdater            * cageUpdater;
    SkeletonUpdater        * skeletonUpdater;
 

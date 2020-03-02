@@ -4,7 +4,7 @@
 #include "drawables/drawableObject.h"
 #include "drawables/pickableObject.h"
 #include "drawables/pickerController.h"
-#include "geom/cage.h"
+#include "rigs/cage.h"
 
 #include <unordered_set>
 

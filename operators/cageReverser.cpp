@@ -1,16 +1,16 @@
-#include "cageTranslator.h"
+#include "cageReverser.h"
 
 #include "Eigen/Dense"
 
 #include <QTime>
 #include <QElapsedTimer>
 
-CageTranslator::CageTranslator()
+CageReverser::CageReverser()
 {
 
 }
 
-CageTranslator::CageTranslator(Character * _character,
+CageReverser::CageReverser(Character * _character,
                                Cage      * _cage,
                                Skeleton  * _skel,
                                Weights   * _psi,   //ψ skelUpdater weights
@@ -29,7 +29,7 @@ CageTranslator::CageTranslator(Character * _character,
 
 
 
-CageTranslator::CageTranslator(Character * _character,
+CageReverser::CageReverser(Character * _character,
                                Cage      * _cage,
                                Skeleton  * _skel,
                                Weights   * _psi,   //ψ skelUpdater weights
@@ -48,7 +48,7 @@ CageTranslator::CageTranslator(Character * _character,
           );
 }
 
-bool CageTranslator::create(Character *_character,
+bool CageReverser::create(Character *_character,
                             Cage *_cage,
                             Skeleton *_skel,
                             Weights *_psi,
@@ -100,7 +100,7 @@ bool CageTranslator::create(Character *_character,
    refreshMatrices = false;
 }
 
-bool CageTranslator::create(Character *_character, Cage *_cage, Skeleton *_skel, Weights *_psi, Weights *_phi, Weights *_omega, const std::vector<int> &_selectedVerticesForInversion)
+bool CageReverser::create(Character *_character, Cage *_cage, Skeleton *_skel, Weights *_psi, Weights *_phi, Weights *_omega, const std::vector<int> &_selectedVerticesForInversion)
 {
    clear();
 
@@ -154,7 +154,7 @@ bool CageTranslator::create(Character *_character, Cage *_cage, Skeleton *_skel,
    return true;
 }
 
-void CageTranslator::clear()
+void CageReverser::clear()
 {
    selectedVerticesForInversion.clear();
 
@@ -184,7 +184,7 @@ void CageTranslator::clear()
    //solver;
 }
 
-void CageTranslator::updateAr()
+void CageReverser::updateAr()
 {
    //if(refreshMatrices)
    {
@@ -247,7 +247,7 @@ void CageTranslator::updateAr()
 }
 
 
-void CageTranslator::computeBtopoInverse()
+void CageReverser::computeBtopoInverse()
 {
    std::vector<Eigen::Triplet<double>> BtopoTriplets;
 
@@ -286,7 +286,7 @@ void CageTranslator::computeBtopoInverse()
    BtopoInverse = (Eigen::MatrixXd(Btopo).inverse()).sparseView();
 }
 
-void CageTranslator::updateR()
+void CageReverser::updateR()
 {
    if( selectedVerticesForInversion.size() == 0 ) { // THEN DO COMPUTATIONS BASED ON ALL VERTICES :
       //if(refreshMatrices)
@@ -350,7 +350,7 @@ void CageTranslator::updateR()
    }
 }
 
-void CageTranslator::updateSolver()
+void CageReverser::updateSolver()
 {
    Eigen::SparseMatrix<double> A;
    Eigen::SparseMatrix<double> PHIPLUS; //Pseudoinverse of PHI
@@ -365,7 +365,7 @@ void CageTranslator::updateSolver()
    solver.init(A);   //system is overdetrmined: Least square?
 }
 
-void CageTranslator::propagateToRest()
+void CageReverser::propagateToRest()
 {
    if(refreshMatrices)
    {

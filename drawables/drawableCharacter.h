@@ -2,7 +2,7 @@
 #define DRAWABLECHARACTER_H
 
 #include "drawables/drawableObject.h"
-#include "geom/character.h"
+#include "rigs/character.h"
 
 #define CINOLIB_USES_OPENGL
 #define CINOLIB_USES_QT

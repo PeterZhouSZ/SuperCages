@@ -4,7 +4,7 @@
 #include "common/animatorOperations.h"
 #include "animation/asyncAnimator.h"
 #include "controller.h"
-#include "operators/cageTranslator.h"
+#include "operators/cageReverser.h"
 #include "GUI/glCanvas.h"
 #include "GUI/restPoseCanvas.h"
 #include "GUI/qtUtils.h"

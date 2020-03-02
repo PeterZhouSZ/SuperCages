@@ -2,8 +2,8 @@
 #define CAGEUPDATER_H
 
 #include "skinning/weights.h"
-#include "geom/cage.h"
-#include "geom/character.h"
+#include "rigs/cage.h"
+#include "rigs/character.h"
 #include "geom/transform.h"
 #include "math/leastSquareSolver.h"
 

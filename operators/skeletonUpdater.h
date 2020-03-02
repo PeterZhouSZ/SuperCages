@@ -2,9 +2,9 @@
 #define SKELETONUPDATER_H
 
 #include "skinning/weights.h"
-#include "geom/skeleton.h"
-#include "geom/cage.h"
-#include "geom/character.h"
+#include "rigs/skeleton.h"
+#include "rigs/cage.h"
+#include "rigs/character.h"
 #include "geom/transform.h"
 
 class SkeletonUpdater
