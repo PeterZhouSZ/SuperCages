@@ -475,6 +475,7 @@ void loadSkelAnimation(
 
    string line;
    bool areKeyframeInitialized = false;
+   bool isItAnOldAnimation=true;
    while (getline(file, line))
    {
       istringstream iss(line);
@@ -486,6 +487,8 @@ void loadSkelAnimation(
       //std::cout << token << std::endl << std::endl;
 
       if (token.size() > 1) continue; // vn,fn  .... I don't care
+
+      if (token[0] == 't') { isItAnOldAnimation = false; }
 
       if (token[0] == 'k')
       {
@@ -504,25 +507,56 @@ void loadSkelAnimation(
 
          ulong i;
 
-         double v[6];
-         iss >> i >>
-               v[ 0] >>
-               v[ 1] >>
-               v[ 2] >>
-               v[ 3] >>
-               v[ 4] >>
-               v[ 5];
+         if(isItAnOldAnimation)
+         {
+            double v[16];
+            iss >> i >>
+                  v[ 0] >>
+                  v[ 1] >>
+                  v[ 2] >>
+                  v[ 3] >>
+                  v[ 4] >>
+                  v[ 5] >>
+                  v[ 6] >>
+                  v[ 7] >>
+                  v[ 8] >>
+                  v[ 9] >>
+                  v[10] >>
+                  v[11] >>
+                  v[12] >>
+                  v[13] >>
+                  v[14] >>
+                  v[15];
+            cg3::Transform T(v);
 
-         cg3::Transform T(
-               v[0],
-               v[1],
-               v[2],
-               v[3],
-               v[4],
-               v[5]
-               );
+            skelKeyframes[i].push_back(T);
+         }
 
-         skelKeyframes[i].push_back(T);
+         else
+
+         {
+
+            double v[6];
+            iss >> i >>
+                  v[ 0] >>
+                  v[ 1] >>
+                  v[ 2] >>
+                  v[ 3] >>
+                  v[ 4] >>
+                  v[ 5];
+
+            cg3::Transform T(
+                  v[0],
+                  v[1],
+                  v[2],
+                  v[3],
+                  v[4],
+                  v[5]
+                  );
+
+            skelKeyframes[i].push_back(T);
+
+         }
 
 
       }
