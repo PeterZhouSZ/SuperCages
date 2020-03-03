@@ -15,7 +15,7 @@
 #include "skinning/cageSkinning.h"
 #include "operators/cageUpdater.h"
 #include "GUI/restPoseCanvas.h"
-#include "operators/cageTranslator.h"
+#include "operators/cageReverser.h"
 
 void saveCageWeightsToFile()
 {

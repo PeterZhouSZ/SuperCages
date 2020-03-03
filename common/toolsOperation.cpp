@@ -6,8 +6,6 @@
 #include "GUI/restPoseCanvas.h"
 #include "drawables/drawableCharacter.h"
 
-#include "math/meshReconstructor.h"
-
 //TEST
 #include "common/exportFiles.h"
 #include "GUI/qtUtils.h"

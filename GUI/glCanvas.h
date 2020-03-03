@@ -81,15 +81,10 @@ protected :
    //Stuff for mouse spatial interaction
    ClickConverter clickConverter;
 
-   //Utilities for rotations
-   cg3::Point3d rotationCenter;
-   cg3::Vec3d rotationAxis;
-   bool computeCenterOfRotation();
-
    //Deformation of selected objects
-   void computePickableObjectsTranslation();
-   void computePickableObjectsRotation();
-   void computePickableObjectsScaling(int direction);
+   void translatePicableObjects();
+   void rotatePickableObjects();
+   void scalePickableObjects(int scaleFactor);
 
    //Utilities for Camera saving
    qglviewer::Vec savedCameraPosition;

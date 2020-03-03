@@ -3,7 +3,7 @@ QT += core gui opengl xml widgets
 TARGET   = Supercages
 TEMPLATE = app
 
-CONFIG += c++11
+CONFIG += c++17
 
 #FLAG FOR CUSTOM LIGHTS
 DEFINES += CUSTOM_LIGHTS
@@ -128,18 +128,18 @@ HEADERS = \
     common/importFiles.h \
     controller.h \
     GUI/qtUtils.h \
-    geom/cage.h \
+    rigs/cage.h \
     drawables/drawableCage.h \
     GUI/glUtils.h \
     drawables/pickerController.h \
     drawables/pickableObject.h \
     geom/plane.h \
     math/dualQuaternion.h \
-    geom/skeleton.h \
+    rigs/skeleton.h \
     drawables/drawableSkeleton.h \
     geom/transform.h \
     common/types.h \
-    operators/cageTranslator.h \
+    operators/cageReverser.h \
     operators/cageUpdater.h \
     operators/skeletonUpdater.h \
     skinning/weights.h \
@@ -154,7 +154,7 @@ HEADERS = \
     GUI/skeletonPanel.h \
     common/texture.h \
     common/exportFiles.h \
-    geom/character.h \
+    rigs/character.h \
     drawables/drawableCharacter.h \
     GUI/characterPanel.h \
     common/toolsOperation.h \
@@ -163,8 +163,6 @@ HEADERS = \
     math/leastSquareSolver.h \
     math/quaternion.h \
     geom/ray.h \
-    math/meshReconstructor.h \
-    math/frame.h \
     skinning/dualQuaternionSkinning.h \
     skinning/noCageSkinning.h \
     common/animatorOperations.h \
@@ -172,7 +170,6 @@ HEADERS = \
     external/JM/MEC.h \
     external/JM/point3.h \
     external/JM/MVCoordinates3D.h \
-    external/OBJ-Loader/OBJ_Loader.h \
     GUI/rigPanel.h \
     common/rigOperations.h \
     animation/asyncAnimator.h \
@@ -195,11 +192,11 @@ SOURCES = \
     GUI/glUtils.cpp \
     drawables/pickableObject.cpp \
     drawables/pickerController.cpp \
-    geom/skeleton.cpp \
+    rigs/skeleton.cpp \
     drawables/drawableSkeleton.cpp \
     geom/transform.cpp \
     common/types.cpp \
-    operators/cageTranslator.cpp \
+    operators/cageReverser.cpp \
     operators/cageUpdater.cpp \
     operators/skeletonUpdater.cpp \
     skinning/weights.cpp \
@@ -214,16 +211,14 @@ SOURCES = \
     GUI/skeletonPanel.cpp \
     common/exportFiles.cpp \
     geom/trimesh.cpp \
-    geom/cage.cpp \
-    geom/character.cpp \
+    rigs/cage.cpp \
+    rigs/character.cpp \
     drawables/drawableCharacter.cpp \
     GUI/characterPanel.cpp \
     common/toolsOperation.cpp \
     GUI/toolsPanel.cpp \
     common/characterOperations.cpp \
     math/leastSquareSolver.cpp \
-    math/meshReconstructor.cpp \
-    math/frame.cpp \
     skinning/dualQuaternionSkinning.cpp \
     skinning/noCageSkinning.cpp \
     common/animatorOperations.cpp \

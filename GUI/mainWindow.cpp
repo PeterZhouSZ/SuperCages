@@ -1,6 +1,10 @@
 #include "mainWindow.h"
 #include "ui_mainWindow.h"
 
+#include <qsplitter.h>
+
+#include "common/animatorOperations.h"
+
 #include "GUI/glCanvas.h"
 #include "GUI/rigPanel.h"
 #include "GUI/characterPanel.h"
@@ -8,11 +12,7 @@
 #include "GUI/skeletonPanel.h"
 #include "GUI/asyncAnimatorPanel.h"
 #include "GUI/toolsPanel.h"
-#include "common/animatorOperations.h"
-
-#include "qsplitter.h"
 #include "GUI/restPoseCanvas.h"
-
 #include "GUI/qtUtils.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -25,23 +25,18 @@ MainWindow::MainWindow(QWidget *parent)
 
    controller->mainWindow = this;
 
-   //DEBUG VIEW
    QSplitter *hSplit = new QSplitter(Qt::Horizontal);
-
 
    //configure glCanvas
    controller->glCanvas = new GlCanvas(hSplit);
    controller->glCanvas->setObjectName(QStringLiteral("GlCanvas"));
 
-
-   //configure debugCanvas
+   //configure restPoseCanvas
    controller->restPoseCanvas = new RestPoseCanvas(hSplit);
-   controller->restPoseCanvas->setObjectName(QStringLiteral("DebugCanvas"));
+   controller->restPoseCanvas->setObjectName(QStringLiteral("RestPoseCanvas"));
 
    // Set main QSplitter as the main widget.
    ui->verticalLayout->addWidget(hSplit);
-   //hSplit->show();
-
 
    //configure fbxImportPanel
    if(!controller->rigPanel)
@@ -51,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
    controller->rigPanel->show();
    addDockWidget(Qt::LeftDockWidgetArea, controller->rigPanel);
 
-   //configure trimeshPanel
+   //configure characterPanel
    if(!controller->characterPanel)
    {
       controller->characterPanel = new CharacterPanel(this);
@@ -59,8 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
    controller->characterPanel->show();
    addDockWidget(Qt::LeftDockWidgetArea, controller->characterPanel);
 
-
-   //configure CagePanel
+   //configure cagePanel
    if(!controller->cagePanel)
    {
       controller->cagePanel = new CagePanel(this);
@@ -68,8 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
    controller->cagePanel->show();
    addDockWidget(Qt::LeftDockWidgetArea, controller->cagePanel);
 
-
-   //configure SkeletonPanel
+   //configure skeletonPanel
    if(!controller->skeletonPanel)
    {
       controller->skeletonPanel = new SkeletonPanel(this);
@@ -77,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
    controller->skeletonPanel->show();
    addDockWidget(Qt::LeftDockWidgetArea, controller->skeletonPanel);
 
-   //configure AsyncAnimatorPanel
+   //configure asyncAnimatorPanel
    if(!controller->asyncAnimatorPanel)
    {
       controller->asyncAnimatorPanel = new AsyncAnimatorPanel(this);
@@ -85,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
    controller->asyncAnimatorPanel->show();
    addDockWidget(Qt::LeftDockWidgetArea, controller->asyncAnimatorPanel);
 
-   //configure ToolPanel
+   //configure toolsPanel
    if(!controller->toolsPanel)
    {
       controller->toolsPanel = new ToolsPanel(this);
@@ -95,7 +88,7 @@ MainWindow::MainWindow(QWidget *parent)
 
    updateGUI();
 
-   /*tabifyDockWidget(controller->rigPanel, controller->characterPanel);*/
+   //tabifyDockWidget(controller->rigPanel, controller->characterPanel);
    tabifyDockWidget(controller->characterPanel, controller->cagePanel);
    tabifyDockWidget(controller->cagePanel, controller->skeletonPanel);
    controller->characterPanel->raise();
@@ -106,17 +99,4 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
    delete ui;
-}
-
-void MainWindow::on_actionSmallHumanoid_triggered()
-{
-   //quickLoadFBX("/quickload/smallhumanoid.fbx");
-   //quickLoadSkelAnimation("/quickload/smallhumanoid_skelAnim.txt");
-   //quickLoadCageAnimation("/quickload/smallhumanoid_cageAnim.txt");
-   //controller->asyncAnimatorPanel->updateKeyframeList();
-}
-
-void MainWindow::on_actionHorse_triggered()
-{
-   //quickLoadFBX("/quickload/horse.fbx");
 }

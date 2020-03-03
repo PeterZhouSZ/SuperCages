@@ -12,7 +12,7 @@ class SkeletonPanel : public QDockWidget
    Q_OBJECT
 
 public:
-   explicit SkeletonPanel(QWidget *parent = 0);
+   explicit SkeletonPanel(QWidget *parent = nullptr);
    ~SkeletonPanel();
 
 private slots:

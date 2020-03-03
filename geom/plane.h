@@ -31,7 +31,7 @@ public:
    }
 
    Plane(const std::vector<double> & vertices,
-         const std::vector<int>    & chosenVerticesIndexes)
+         const std::vector<ulong>  & chosenVerticesIndexes)
    {
       // http://www.ilikebigbits.com/blog/2015/3/2/plane-from-points
       // centroid

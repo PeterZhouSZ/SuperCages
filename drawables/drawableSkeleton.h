@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <unordered_set>
-#include "geom/skeleton.h"
+#include "rigs/skeleton.h"
 #include "drawables/drawableObject.h"
 #include "drawables/pickableObject.h"
 #include "geom/boundingBox.h"

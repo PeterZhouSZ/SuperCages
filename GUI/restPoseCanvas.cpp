@@ -359,7 +359,7 @@ void RestPoseCanvas::computePickableObjectsTranslation()
 void RestPoseCanvas::computePickableObjectsRotation()
 {
    cg3::dQuaternion rotation;
-   clickConverter.getRotation(rotation, rotationAxis, sceneRadius);
+   clickConverter.getRotation(rotation, sceneRadius);
 
    controller->skeleton->rotateRest(rotation);
    controller->cage->rotateRest(rotation);

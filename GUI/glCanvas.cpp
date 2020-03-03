@@ -26,7 +26,7 @@
 #include "QGLViewer/manipulatedCameraFrame.h"
 #include "operators/cageUpdater.h"
 #include "operators/skeletonUpdater.h"
-#include "operators/cageTranslator.h"
+#include "operators/cageReverser.h"
 #include "animation/asyncAnimator.h"
 #include "skinning/corSkinning.h"
 
@@ -168,66 +168,34 @@ void GlCanvas::refreshScene()
 
 void GlCanvas::runSkinningPipeline()
 {
-   //QElapsedTimer timer;
-   //qint64 nanoSec;
-   //timer.start();
-
    //Skinning
    if(controller->isCageSkinningInitialized &&
          controller->isSkeletonSkinningInitialized)
    {
-      //clock_t time_req;
-      //time_req = clock();
-
       controller->cageSkinning->deform();
-
-      //time_req = clock()- time_req;
-      //std::cout << "CageSkinning execution time : " << (float) time_req << std::endl;
-      //time_req = clock();
 
       if(controller->isSkeletonUpdaterActive)
       {
          controller->skeletonUpdater->updatePosition();
       }
 
-      //time_req = clock()- time_req;
-      //std::cout << "SkeletonUpdater execution time : " << (float) time_req << std::endl;
-      //time_req = clock();
-
       controller->skeleton->updateGlobalT();
       controller->skeletonSkinning->deform();
-
-      //time_req = clock()- time_req;
-      //std::cout << "SkeletonSkinning execution time : " << (float) time_req << std::endl;
-      //time_req = clock();
 
       if(controller->isCageUpdaterActive)
       {
          controller->cageUpdater->updatePosition();
       }
 
-      //time_req = clock()- time_req;
-      //std::cout << "CageUpdater execution time : " << (float) time_req << std::endl;
-
       //controller->cageSkinning->deform();
 
-      //time_req = clock();
-
       controller->character->updateNormals();
-
-      //time_req = clock()- time_req;
-      //std::cout << "UpdateCharacterNormals execution time : " << (float) time_req << std::endl;
-      //time_req = clock();
 
       //controller->character->updateSkelCageBlendVertices();
       controller->character->updateCutVerticesPosition();
       //controller->cage->updateNormals();
-
-      //std::cout << std::endl;
    }
 
-   //nanoSec = timer.nsecsElapsed();
-   //std::cout << nanoSec << std::endl;
 }
 
 void GlCanvas::fitScene()
@@ -237,7 +205,7 @@ void GlCanvas::fitScene()
 
    int numberOfValidObjectCentroid = 0;
 
-   for(int i=0; i<(int)drawableObjects.size(); ++i)
+   for(ulong i=0; i<drawableObjects.size(); ++i)
    {
       const DrawableObject * obj = drawableObjects[i];
 
@@ -269,7 +237,7 @@ void GlCanvas::fitScene()
 
    if(numberOfValidObjectCentroid > 1)
    {
-      sceneCenter /= (double)numberOfValidObjectCentroid;
+      sceneCenter /= static_cast<double>(numberOfValidObjectCentroid);
    }
 
    setSceneCenter(qglviewer::Vec(sceneCenter.x(), sceneCenter.y(), sceneCenter.z()));
@@ -379,7 +347,7 @@ void GlCanvas::mousePressEvent(QMouseEvent* e)
          } else
             if (e->buttons() & Qt::LeftButton)
             {
-               computeCenterOfRotation(); //Remove?
+
             }
       }
       else
@@ -398,12 +366,12 @@ void GlCanvas::mouseMoveEvent(QMouseEvent* e)
          if (e->buttons() & Qt::RightButton)
          {
             clickConverter.updateMouseMovement(e->x(),e->y());
-            computePickableObjectsTranslation();
+            translatePicableObjects();
          } else
             if (e->buttons() & Qt::LeftButton)
             {
                clickConverter.updateMouseMovement(e->x(),e->y());
-               computePickableObjectsRotation();
+               rotatePickableObjects();
             }
 
 
@@ -441,74 +409,18 @@ void GlCanvas::mouseMoveEvent(QMouseEvent* e)
                controller->cor->updateCoRs();
             }
 
-            /*//-------------------------   SANITY CHECK   ---------------------------//
-            // Check that the dT resulting from the framework verify : Ar . dA = Btopo . dT:
-            Eigen::VectorXd Abefore( 3 * controller->skeleton->getNumNodes() );
-            for( unsigned int j = 0 ; j < controller->skeleton->getNumNodes() ; ++j ) {
-               cg3::Vec3d a_j = controller->skeleton->getNode(j).getGlobalTRest().getTranslation();
-               for( unsigned int c = 0 ; c < 3 ; ++c )
-                  Abefore[ 3*j + c ] = a_j[c];
-            }
-            Eigen::VectorXd Tbefore( 3 * controller->skeleton->getNumNodes() );
-            for( unsigned int j = 0 ; j < controller->skeleton->getNumNodes() ; ++j ) {
-               cg3::Transform Tj1 = controller->skeleton->getNode(j).getGlobalTRest();
-               cg3::Transform TjActual = controller->skeleton->getNode(j).getGlobalTCurrent();
-               cg3::Vec3d t_j = TjActual.cumulateWith(Tj1.inverse()).getTranslation();
-               for( unsigned int c = 0 ; c < 3 ; ++c )
-                  Tbefore[ 3*j + c ] = t_j[c];
-            }
-
-
-            //-------------------------   SANITY CHECK   ---------------------------//*/
-
             if(controller->isSkeletonUpdaterActive)
             {
                controller->skeletonUpdater->updatePosition();
                controller->skeleton->updateGlobalT();
             }
 
-
             controller->skeletonSkinning->deform();
 
             //controller->cageSkinning->deform();
 
-
             controller->cageUpdater->updatePosition();
             controller->character->updateNormals();
-
-
-            /*//-------------------------   SANITY CHECK   ---------------------------//
-            Eigen::VectorXd Anow( 3 * controller->skeleton->getNumNodes() );
-            for( unsigned int j = 0 ; j < controller->skeleton->getNumNodes() ; ++j ) {
-               cg3::Vec3d a_j = controller->skeleton->getNode(j).getGlobalTRest().getTranslation();
-               for( unsigned int c = 0 ; c < 3 ; ++c )
-                  Anow[ 3*j + c ] = a_j[c];
-            }
-            Eigen::VectorXd Tnow( 3 * controller->skeleton->getNumNodes() );
-            for( unsigned int j = 0 ; j < controller->skeleton->getNumNodes() ; ++j ) {
-               cg3::Transform Tj1 = controller->skeleton->getNode(j).getGlobalTRest();
-               cg3::Transform TjActual = controller->skeleton->getNode(j).getGlobalTCurrent();
-               cg3::Vec3d t_j = TjActual.cumulateWith(Tj1.inverse()).getTranslation();
-               for( unsigned int c = 0 ; c < 3 ; ++c )
-                  Tnow[ 3*j + c ] = t_j[c];
-            }
-            std::cout << "\t  ||Ar dA - Btopo dT|| = " <<
-                         ( controller->cageTranslator->getAr() * (Anow-Abefore)  -  controller->cageTranslator->getBtopo() * (Tnow-Tbefore) ).norm() << std::endl;
-
-            //Check the difference between the user C' and CUPD-C'
-            std::vector<double> cUPDv (controller->cage->getVerticesVector());
-
-
-            Eigen::VectorXd Cnow( cUPDv.size() );
-            for( unsigned int j = 0 ; j < cUPDv.size() ; ++j ) {
-               Cnow[ j ] = c1v[j] - cUPDv[j];
-            }
-            std::cout << "\t  ||C' - CUPD-C'|| = " <<
-                         Cnow.norm() << std::endl;
-
-
-
-            //-------------------------   SANITY CHECK   ---------------------------//*/
          }
 
          controller->character->updateCutVerticesPosition();
@@ -542,8 +454,6 @@ void GlCanvas::mouseReleaseEvent(QMouseEvent* e)
    {
       interactionMode = CAMERA;
 
-
-
       if(controller->isSkeletonSkinningInitialized &&
             controller->skeleton->refreshCharacterPoseIsNeeded())
       {
@@ -554,8 +464,6 @@ void GlCanvas::mouseReleaseEvent(QMouseEvent* e)
       if(controller->isCageSkinningInitialized &&
             controller->cage->refreshCharacterPose())
       {
-
-
          //controller->cageSkinning->deform();
          controller->skeletonSkinning->deform();
          //controller->cageUpdater->updatePosition();
@@ -582,8 +490,7 @@ void GlCanvas::wheelEvent(QWheelEvent *e)
          controller->isCageSkinningInitialized   )
    {
       //potrebbe creare bug se uso la rotellina mentre ruoto skel/cage
-      computeCenterOfRotation();
-      computePickableObjectsScaling(e->delta());
+      scalePickableObjects(e->delta());
 
       controller->cageTranslator->propagateToRest();
       controller->cageSkinning->deform();
@@ -601,8 +508,8 @@ void GlCanvas::wheelEvent(QWheelEvent *e)
 
       controller->skeletonSkinning->deform();
       controller->cageUpdater->updatePosition();
-
-
+      controller->character->updateNormals();
+      controller->character->updateCutVerticesPosition();
 
       controller->cage->characterPoseRefreshed();
       controller->character->updateNormals();
@@ -649,7 +556,7 @@ void GlCanvas::endSelection(const QPoint&)
       // (selectBuffer())[4*i+3] is the id pushed on the stack.
       for (int i=0; i<nbHits; ++i)
       {
-         int pickedIndex = (selectBuffer())[4*i+3];
+         unsigned long pickedIndex = (selectBuffer())[4*i+3];
          switch(interactionMode)
          {
          case SELECT:
@@ -674,41 +581,8 @@ void GlCanvas::endSelection(const QPoint&)
    interactionMode = CAMERA;
 }
 
-//Valuta se eliminarlo. Ora il calcolo del centro di rotazione è ridondante all'interno di DrawableCage
-bool GlCanvas::computeCenterOfRotation()
-{
-   std::vector<cg3::Point3d> selectedObjectsBarycenters;
-
-   for(unsigned long i=0; i<pickableObjects.size(); ++i)
-   {
-      cg3::Point3d barycenter;
-      if(pickableObjects[i]->getSelectedObjectsBarycenter(barycenter))
-      {
-         selectedObjectsBarycenters.push_back(barycenter);
-      }
-   }
-
-   int numberOfBarycenters = (int)selectedObjectsBarycenters.size();
-
-   for(int i=0; i<numberOfBarycenters; ++i)
-   {
-      if(i==0)
-         rotationCenter = selectedObjectsBarycenters[0];
-      else
-         rotationCenter += selectedObjectsBarycenters[i];
-   }
-
-   if(numberOfBarycenters)
-   {
-      rotationCenter /= (double)numberOfBarycenters;
-      return true;
-   }
-
-   return false;
-}
-
 //Deformation of selected objects
-void GlCanvas::computePickableObjectsTranslation()
+void GlCanvas::translatePicableObjects()
 {
    cg3::Vec3d delta;
    clickConverter.getTranslation(delta);
@@ -719,10 +593,10 @@ void GlCanvas::computePickableObjectsTranslation()
    }
 }
 
-void GlCanvas::computePickableObjectsRotation()
+void GlCanvas::rotatePickableObjects()
 {
    cg3::dQuaternion rotation;
-   clickConverter.getRotation(rotation, rotationAxis, sceneRadius);  //TODO: Riscrivi per cg3::Transform
+   clickConverter.getRotation(rotation, sceneRadius);
 
    for(unsigned long i=0; i<pickableObjects.size(); ++i)
    {
@@ -730,10 +604,10 @@ void GlCanvas::computePickableObjectsRotation()
    }
 }
 
-void GlCanvas::computePickableObjectsScaling(int direction)
+void GlCanvas::scalePickableObjects(int scaleFactor)
 {
    for(unsigned long i=0; i<pickableObjects.size(); ++i)
    {
-      pickableObjects[i]->scale(direction);
+      pickableObjects[i]->scale(scaleFactor);
    }
 }

@@ -12,7 +12,7 @@ class ToolsPanel : public QDockWidget
    Q_OBJECT
 
 public:
-   explicit ToolsPanel(QWidget *parent = 0);
+   explicit ToolsPanel(QWidget *parent = nullptr);
    ~ToolsPanel();
 
    void updateSkelDeformationButton();

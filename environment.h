@@ -18,7 +18,7 @@
 
 #include "animation/asyncAnimator.h"
 
-#include "operators/cageTranslator.h"
+#include "operators/cageReverser.h"
 #include "operators/cageUpdater.h"
 #include "operators/skeletonUpdater.h"
 
@@ -57,7 +57,7 @@ private:
    AsyncAnimator                asyncAnimator;
 
 // SuperCages
-   CageTranslator               cageTranslator;
+   CageReverser               cageTranslator;
    CageUpdater                  cageUpdater;
    SkeletonUpdater              skeletonUpdater;
 

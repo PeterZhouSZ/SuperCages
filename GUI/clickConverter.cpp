@@ -68,7 +68,6 @@ void ClickConverter::getTranslation(cg3::Vec3d & translation)
 }
 
 void ClickConverter::getRotation(cg3::dQuaternion & rotation,
-                                 cg3::Vec3d & rotationAxis,
                                  const double scaleFactor)
 {
    cg3::Vec3d vPreviousRay = previousClickRay.getPointOnRay(50.0);
@@ -83,7 +82,7 @@ void ClickConverter::getRotation(cg3::dQuaternion & rotation,
    cg3::Vec3d delta = p2-p1;
 
    //Utilities for rotations
-   rotationAxis = delta.cross(midPlane.normal());
+   cg3::Vec3d rotationAxis = delta.cross(midPlane.normal());
 
    /*//TODO: find a better and more precise way to compute the rotation angle
    double clicksDistance = std::sqrt(((_previousMouseX - _actualMouseX)  *

@@ -18,6 +18,7 @@ private:
 public:
    Transform();
    Transform(double tx, double ty, double tz);
+   Transform(double rx, double ry, double rz, double tx, double ty, double tz);
    Transform(cg3::dQuaternion r);
    Transform(dQuaternion r, cg3::Vec3d t);
    Transform(double mat[16]);

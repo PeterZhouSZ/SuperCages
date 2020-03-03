@@ -23,9 +23,6 @@ void loadPLY   (const char                * filename,
 void loadWeights  (const char    * filename,
                    Weights       * weights);
 
-/*void loadWeights2(const char *filename,
-                  Weights *weights);*/
-
 void loadSparseWeights(const char *filename,
                        SparseWeights & weights);
 
@@ -48,10 +45,9 @@ void loadSkeleton(
                   std::vector<int>            & fathers,
                   std::vector<std::string>    & names);
 
-void loadSkelAnimation(
-                   const char                       * filename,
-                   std::vector<double>              & t,
-                   std::vector<std::vector<cg3::Transform>> & skelKeyframes);
+void loadSkelAnimation(const char                       * filename,
+                       std::vector<double>              & t,
+                       std::vector<std::vector<cg3::Transform>> & skelKeyframes);
 
 void loadCageAnimation(
                    const char                       * filename,

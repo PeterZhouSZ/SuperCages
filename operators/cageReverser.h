@@ -1,30 +1,30 @@
 #ifndef CAGETRANSLATOR_H
 #define CAGETRANSLATOR_H
 
-#include "geom/character.h"
+#include "rigs/character.h"
 
-#include "geom/cage.h"
+#include "rigs/cage.h"
 
-#include "geom/skeleton.h"
+#include "rigs/skeleton.h"
 
 #include "skinning/weights.h"
 
 #include "Eigen/Sparse"
 #include "math/leastSquareSolver.h"
 
-class CageTranslator
+class CageReverser
 {
 public:
 
-    CageTranslator();
-    CageTranslator(Character * _character,
+    CageReverser();
+    CageReverser(Character * _character,
                    Cage      * _cage,
                    Skeleton  * _skel,
                    Weights   * _psi,   //ψ skelUpdater weights
                    Weights   * _phi,   //φ cage weights
                    Weights   * _omega  //ω skel weights
                    );
-    CageTranslator(Character * _character,
+    CageReverser(Character * _character,
                    Cage      * _cage,
                    Skeleton  * _skel,
                    Weights   * _psi,   //ψ skelUpdater weights

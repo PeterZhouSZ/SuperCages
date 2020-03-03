@@ -219,15 +219,18 @@ void saveSkelAnimation (
    fp.precision(6);
    fp.setf( std::ios::fixed, std::ios::floatfield ); // floatfield set to fixed
 
+
    if(!fp)
    {
       cerr << "ERROR : " << __FILE__ << ", line " << __LINE__ << " : saveWeights() : couldn't open output file " << filename << endl;
       exit(-1);
    }
 
+   fp << "t rt" << std::endl;
+
    for( unsigned long  i = 0; i < t.size(); ++i )
    {
-      fp << "k " << t[i] << endl;   //keyframe
+      fp << "k " << t[i] << std::endl;   //keyframe
    }
 
    for( unsigned long i = 0; i < t.size(); ++i )
@@ -235,19 +238,14 @@ void saveSkelAnimation (
 
       for( unsigned long j = 0; j < skelKeyframes[i].size(); ++j )
       {
-
-         std::vector<double> kf(16);
-         skelKeyframes[i][j].data(kf);
+         cg3::Vec3d r = skelKeyframes[i][j].getRotation().toEuler();
+         cg3::Vec3d t = skelKeyframes[i][j].getTranslation();
 
          fp << "s "  //skel
             << i << " "
-            << kf[0] << " "  << kf[1] << " "  << kf[2]  << " " << kf[3]  << " "
-            << kf[4] << " "  << kf[5] << " "  << kf[6]  << " " << kf[7]  << " "
-            << kf[8] << " "  << kf[9] << " "  << kf[10] << " " << kf[11] << " "
-            << kf[12] << " " << kf[13] << " " << kf[14] << " " << kf[15] <<
+            << r[0] << " "  << r[1] << " "  << r[2]  << " "
+            << t[0] << " "  << t[1] << " "  << t[2]  << " " <<
             std::endl;
-
-         //std::cout << kfT.getEigenTransformation() << std::endl;
       }
    }
    fp.close();
