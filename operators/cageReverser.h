@@ -82,13 +82,11 @@ private:
    Eigen::SparseMatrix<double> PHI;
    Eigen::SparseMatrix<double> PHI_transpose;
    Eigen::SparseMatrix<double> OMEGA;
-
    Eigen::SparseMatrix<double> Ar;
    Eigen::SparseMatrix<double> Btopo;
    Eigen::SparseMatrix<double> BtopoInverse;
    Eigen::SparseMatrix<double> R;
 
-   //Eigen::SimplicialLLT<Eigen::SparseMatrix<double>> solver;
    LeastSquareSolver solver;
 };
 

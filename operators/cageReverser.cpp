@@ -60,95 +60,47 @@ bool CageReverser::create(Character *_character,
    character = _character;
    cage = _cage;
    skel = _skel;
-
    psi = _psi;
    phi = _phi;
    omega = _omega;
 
-   QTime timer;
-   timer.start();
    psi->identityKroneckerProduct(PSI);
-   std::cout << "\tPSI OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-
-   timer.restart();
-
    phi->identityKroneckerProduct(PHI);
    PHI_transpose = PHI.transpose(); // ADDED BY JM
-
-   std::cout << "\tPHI OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-   timer.restart();
    omega->identityKroneckerProduct(OMEGA);
-   std::cout << "\tOMEGA OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-
    Ar.resize(3*skel->getNumNodes(),3*skel->getNumNodes());
    BtopoInverse.resize(3*skel->getNumNodes(),3*skel->getNumNodes());
    R.resize(3*character->getNumVertices(),3*character->getNumVertices());
-
-   timer.restart();
    computeBtopoInverse();
-   std::cout << "\t computeBtopoInverse OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-   timer.restart();
    updateAr();
-   std::cout << "\t updateAr OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-   timer.restart();
    updateR();
-   std::cout << "\t updateR OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-   timer.restart();
    updateSolver();
-   std::cout << "\t updateSolver OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-
    refreshMatrices = false;
+
+   return true;
 }
 
 bool CageReverser::create(Character *_character, Cage *_cage, Skeleton *_skel, Weights *_psi, Weights *_phi, Weights *_omega, const std::vector<int> &_selectedVerticesForInversion)
 {
    clear();
-
    selectedVerticesForInversion = _selectedVerticesForInversion;
-
    character = _character;
    cage = _cage;
    skel = _skel;
-
    psi = _psi;
    phi = _phi;
    omega = _omega;
-
-   QTime timer;
-   timer.start();
    psi->identityKroneckerProduct(PSI);
-   std::cout << "\tPSI OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-
-
-   timer.restart();
-
    phi->identityKroneckerProduct(PHI , selectedVerticesForInversion);
    PHI_transpose = PHI.transpose(); // ADDED BY JM
-
-   std::cout << "\tPHI OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-   timer.restart();
    omega->identityKroneckerProduct(OMEGA , selectedVerticesForInversion);
-   std::cout << "\tOMEGA OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-
-
-
    Ar.resize(3*skel->getNumNodes(),3*skel->getNumNodes());
    BtopoInverse.resize(3*skel->getNumNodes(),3*skel->getNumNodes());
    R.resize(3* selectedVerticesForInversion.size() ,3* selectedVerticesForInversion.size() );
-
-   timer.restart();
    computeBtopoInverse();
-   std::cout << "\t computeBtopoInverse OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-   timer.restart();
    updateAr();
-   std::cout << "\t updateAr OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-   timer.restart();
    updateR();
-   std::cout << "\t updateR OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-   timer.restart();
    updateSolver();
-   std::cout << "\t updateSolver OK , execution time : " << timer.elapsed() << " ms" << std::endl;
-
    refreshMatrices = false;
 
    return true;
@@ -161,27 +113,21 @@ void CageReverser::clear()
    character = nullptr;
    cage = nullptr;
    skel = nullptr;
-
    psi = nullptr;   //ψ skelUpdater weights
    phi = nullptr;  //φ cage weights
    omega = nullptr; //ω skel weights
 
    refreshMatrices = false;
-
    selectedVerticesForInversion.clear();
 
    PSI.resize(0,0);
    PHI.resize(0,0);
    PHI_transpose.resize(0,0);
    OMEGA.resize(0,0);
-
    Ar.resize(0,0);
    Btopo.resize(0,0);
    BtopoInverse.resize(0,0);
    R.resize(0,0);
-
-   //Eigen::SimplicialLLT<Eigen::SparseMatrix<double>> solver;
-   //solver;
 }
 
 void CageReverser::updateAr()
@@ -227,9 +173,6 @@ void CageReverser::updateAr()
             cg3::Transform Tf1 = skel->getNode(f).getGlobalTRest();
             cg3::Transform TfActual = skel->getNode(f).getGlobalTCurrent();
             cg3::Transform Rf = TfActual.cumulateWith(Tf1.inverse());
-
-            //cg3::Transform Rj = skel->getNode(j).getGlobalTransformation();
-            //cg3::Transform Rf = skel->getNode(f).getGlobalTransformation();
 
             for(int c1=0; c1<3; ++c1)
             {
@@ -362,7 +305,7 @@ void CageReverser::updateSolver()
 
    // std::cout << "Diff(A , PHI): " << (A - PHI).norm() << std::endl;
 
-   solver.init(A);   //system is overdetrmined: Least square?
+   solver.init(A);
 }
 
 void CageReverser::propagateToRest()
@@ -385,8 +328,6 @@ void CageReverser::propagateToRest()
 
    Eigen::VectorXd dc1;
    dc1.resize(cage->getNumVertices()*3);
-   // const std::vector<double> & restVertices = cage->getRestPoseVerticesVector(); // C
-   // const std::vector<double> & currentVertices = cage->getActualPoseVerticesVector(); // C'
    const std::vector<double> & lastTranslations = cage->getLastTranslations(); // dC'
    for(unsigned int i=0; i< cage->getNumVertices()*3;++i)
    {
