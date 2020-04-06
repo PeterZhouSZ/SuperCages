@@ -5,6 +5,8 @@
 
 Skeleton-based and cage-based deformation techniques represent the two most popular approaches to control real-time deformations of digital shapes and are, to a vast extent, complementary to one another. Despite their complementary roles, high-end modeling packages do not allow for seamless integration of such control structures, thus inducing a considerable burden on the user to maintain them synchronized. In this paper, we propose a framework that seamlessly combines rigging skeletons and deformation cages, granting artists with a real-time deformation system that operates using any smooth combination of the two approaches. By coupling the deformation spaces of cages and skeletons, we access a much larger space, containing poses that are impossible to obtain by acting solely on a skeleton or a cage. Our method is oblivious to the specific techniques used to perform skinning and cage-based deformation, securing it compatible with pre-existing tools. We demonstrate the usefulness of our hybrid approach on a variety of examples. 
 
+## Video Trailer
+
 [![Video](https://img.youtube.com/vi/-Ehftu4KRCM/0.jpg)](https://www.youtube.com/watch?v=-Ehftu4KRCM)
 
 ## Acknowldegment
